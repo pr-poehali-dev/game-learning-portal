@@ -14,9 +14,7 @@ export default {
 		container: {
 			center: true,
 			padding: '2rem',
-			screens: {
-				'2xl': '1400px'
-			}
+			screens: { '2xl': '1400px' }
 		},
 		extend: {
 			fontFamily: {
@@ -67,13 +65,19 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				neon: {
-					purple: '#b44dff',
-					cyan: '#00d4ff',
-					yellow: '#ffd700',
-					pink: '#ff4da6',
-					green: '#39ff14',
-				}
+				sky: {
+					soft: '#a8d8ff',
+					DEFAULT: '#3b9eff',
+					deep: '#1a6fd4',
+				},
+				sakura: {
+					light: '#ffc2dc',
+					DEFAULT: '#ff7eb3',
+					deep: '#e85599',
+				},
+				navy: '#1a3560',
+				gold: '#f5a623',
+				cloud: '#f0f7ff',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -97,17 +101,12 @@ export default {
 					from: { opacity: '0', transform: 'scale(0.95)' },
 					to: { opacity: '1', transform: 'scale(1)' }
 				},
-				'slide-in-right': {
-					from: { opacity: '0', transform: 'translateX(20px)' },
-					to: { opacity: '1', transform: 'translateX(0)' }
-				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.4s ease-out forwards',
 				'scale-in': 'scale-in 0.3s ease-out forwards',
-				'slide-in-right': 'slide-in-right 0.3s ease-out forwards',
 			}
 		}
 	},

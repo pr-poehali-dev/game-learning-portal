@@ -1,62 +1,73 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const CHARACTER_IMG = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/files/ef54a2fd-88c6-4423-9885-ce03739ec5b5.jpg";
+// 3 варианта маскота для разных настроений
+const MASCOT = {
+  pointer: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/6448c8cb-b6a2-4c6d-b2aa-9b0c6bffdf55.jpg",
+  happy:   "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/75363298-9087-4238-b6cc-472c8fcc3566.jpg",
+  thumbs:  "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/34e54cf1-bf32-4789-a85e-5eedc2ca31a4.jpg",
+};
 
 interface Slide {
   id: number;
-  character: string;
   text: string;
-  mood: string;
+  mascotMood: keyof typeof MASCOT;
   scene: string;
-  sceneColor: string;
+  sceneGrad: string;
+  accent: string;
   xp: number;
+  label: string;
 }
 
 const SLIDES: Slide[] = [
   {
     id: 1,
-    character: "Профессор Зная",
-    text: "Привет, искатель знаний! Я рада, что ты здесь. Сегодня мы отправимся в удивительное путешествие по миру науки. Готов ли ты к приключению?",
-    mood: "😊",
-    scene: "Библиотека знаний",
-    sceneColor: "from-violet-900/80 to-indigo-900/80",
+    mascotMood: "pointer",
+    label: "Введение",
+    scene: "Учебный класс",
+    sceneGrad: "linear-gradient(160deg, #c8e8ff 0%, #e0f4ff 100%)",
+    accent: "#3b9eff",
+    text: "Привет, курсант! Я ваш инструктор. Сегодня мы начинаем изучение авиации — одной из самых захватывающих областей техники. Пристегните ремни и внимайте!",
     xp: 10,
   },
   {
     id: 2,
-    character: "Профессор Зная",
-    text: "Первый закон, который мы изучим — это закон причинно-следственных связей. Каждое событие имеет свою причину. Понимание этого — ключ к любому научному мышлению!",
-    mood: "🤔",
-    scene: "Лаборатория открытий",
-    sceneColor: "from-blue-900/80 to-teal-900/80",
+    mascotMood: "pointer",
+    label: "Аэродинамика",
+    scene: "Лекционный зал",
+    sceneGrad: "linear-gradient(160deg, #d0eeff 0%, #e8f7ff 100%)",
+    accent: "#1a6fd4",
+    text: "Самолёт летит благодаря подъёмной силе крыла. Верхняя поверхность крыла изогнута сильнее — воздух там движется быстрее, создавая зону пониженного давления. Это и поднимает самолёт!",
     xp: 20,
   },
   {
     id: 3,
-    character: "Профессор Зная",
-    text: "Отлично! Ты справляешься замечательно. Запомни: практика — мать учения. Настоящие знания рождаются тогда, когда мы применяем их в жизни. Давай разберём пример...",
-    mood: "🌟",
-    scene: "Поле практики",
-    sceneColor: "from-emerald-900/80 to-cyan-900/80",
+    mascotMood: "thumbs",
+    label: "Четыре силы",
+    scene: "Ангар",
+    sceneGrad: "linear-gradient(160deg, #e8f0ff 0%, #f5eeff 100%)",
+    accent: "#7c5cfc",
+    text: "На самолёт действуют четыре основные силы: подъёмная сила, сила тяжести, тяга двигателя и лобовое сопротивление. Лётчик управляет равновесием этих сил для безопасного полёта.",
     xp: 30,
   },
   {
     id: 4,
-    character: "Профессор Зная",
-    text: "Вот реальный пример: когда ты видишь молнию и слышишь гром — это причинно-следственная связь. Молния (причина) создаёт звуковую волну (следствие). Просто и гениально!",
-    mood: "⚡",
-    scene: "Галактика примеров",
-    sceneColor: "from-yellow-900/80 to-orange-900/80",
+    mascotMood: "thumbs",
+    label: "Органы управления",
+    scene: "Кабина пилота",
+    sceneGrad: "linear-gradient(160deg, #ffe8f0 0%, #fff0f7 100%)",
+    accent: "#ff7eb3",
+    text: "Пилот управляет самолётом с помощью: руля высоты (тангаж — нос вверх/вниз), элеронов (крен — наклон по крыльям) и руля направления (рыскание — повороты влево/вправо).",
     xp: 40,
   },
   {
     id: 5,
-    character: "Профессор Зная",
-    text: "Превосходно! Ты прошёл первую главу! 🎉 Ты заработал 100 очков опыта и разблокировал значок «Первый шаг». Продолжай в том же духе — впереди ещё много интересного!",
-    mood: "🏆",
-    scene: "Зал победителей",
-    sceneColor: "from-pink-900/80 to-purple-900/80",
+    mascotMood: "happy",
+    label: "Завершение",
+    scene: "Взлётная полоса",
+    sceneGrad: "linear-gradient(160deg, #c8ffea 0%, #e8fff5 100%)",
+    accent: "#00b87a",
+    text: "Отличная работа, курсант! 🎉 Вы прошли первую лекцию по основам авиации. Заработано 100 XP и значок «Первый полёт»! Двигайтесь дальше — впереди ещё много интересного!",
     xp: 100,
   },
 ];
@@ -67,183 +78,201 @@ interface NovelProps {
 
 export default function Novel({ onNavigate }: NovelProps) {
   const [current, setCurrent] = useState(0);
-  const [earnedXp, setEarnedXp] = useState<number[]>([]);
+  const [seen, setSeen] = useState<Set<number>>(new Set([0]));
   const [transitioning, setTransitioning] = useState(false);
 
   const slide = SLIDES[current];
+  const totalXp = Array.from(seen).reduce((acc, i) => acc + SLIDES[i].xp, 0);
   const progress = ((current + 1) / SLIDES.length) * 100;
-  const totalXp = earnedXp.reduce((a, b) => a + b, 0);
 
   const goTo = (index: number) => {
-    if (transitioning) return;
+    if (transitioning || index === current) return;
     setTransitioning(true);
     setTimeout(() => {
       setCurrent(index);
-      if (!earnedXp.includes(index) && index > 0) {
-        setEarnedXp((prev) => [...prev, index]);
-      }
+      setSeen((prev) => new Set([...prev, index]));
       setTransitioning(false);
     }, 200);
   };
 
-  const goNext = () => {
-    if (current < SLIDES.length - 1) goTo(current + 1);
-  };
-
-  const goPrev = () => {
-    if (current > 0) goTo(current - 1);
-  };
-
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden">
-      {/* Фон сцены */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${slide.sceneColor} transition-all duration-700`}
-      />
-      <div className="absolute inset-0 stars-bg opacity-40" />
+    <div className="min-h-screen flex flex-col relative overflow-hidden" style={{ background: slide.sceneGrad, transition: "background 0.6s ease" }}>
 
-      {/* Декоративные шестиугольники */}
-      <div className="absolute top-10 right-10 w-20 h-20 hexagon bg-white/5 animate-float" style={{ animationDelay: "0s" }} />
-      <div className="absolute bottom-20 left-10 w-14 h-14 hexagon bg-white/5 animate-float" style={{ animationDelay: "1s" }} />
-      <div className="absolute top-40 left-20 w-8 h-8 hexagon bg-neon-purple/20 animate-float" style={{ animationDelay: "0.5s" }} />
+      {/* Облака фон */}
+      {[{ x: 5, y: 5, w: 180 }, { x: 65, y: 3, w: 220 }, { x: 35, y: 80, w: 150 }].map((c, i) => (
+        <div
+          key={i}
+          className="absolute cloud-float pointer-events-none opacity-60"
+          style={{
+            left: `${c.x}%`, top: `${c.y}%`,
+            width: c.w, height: Math.round(c.w * 0.4),
+            background: "radial-gradient(ellipse at 40% 40%, rgba(255,255,255,0.9) 30%, transparent 80%)",
+            borderRadius: "50%",
+            animationDelay: `${i * 2}s`,
+          }}
+        />
+      ))}
 
       {/* Шапка */}
-      <header className="relative z-10 flex items-center justify-between px-4 py-4">
+      <header className="relative z-10 flex items-center justify-between px-4 py-3">
         <button
           onClick={() => onNavigate("home")}
-          className="flex items-center gap-2 px-3 py-2 rounded-xl card-game border border-border/50 text-muted-foreground hover:text-white hover:border-neon-purple/50 transition-all btn-game text-sm"
+          className="flex items-center gap-2 px-3 py-2 rounded-xl sky-card text-navy text-sm btn-sky font-oswald font-semibold"
         >
-          <Icon name="Home" size={16} />
+          <Icon name="Home" size={15} />
           <span>Главная</span>
         </button>
 
-        <div className="flex items-center gap-2 px-3 py-2 rounded-xl card-game border border-neon-yellow/30">
-          <span className="text-neon-yellow text-sm">✨</span>
-          <span className="font-oswald text-neon-yellow font-bold text-sm">+{totalXp} XP</span>
+        <div className="flex items-center gap-2 px-3 py-2 rounded-xl sky-card text-sm font-golos border border-yellow-200">
+          <span className="text-gold">✨</span>
+          <span className="font-bold text-gold font-oswald">+{totalXp} XP</span>
         </div>
       </header>
 
       {/* Прогресс */}
-      <div className="relative z-10 px-4 mb-4">
-        <div className="max-w-3xl mx-auto">
-          <div className="flex items-center justify-between mb-2 text-sm text-muted-foreground font-golos">
-            <span>📍 {slide.scene}</span>
-            <span>{current + 1} / {SLIDES.length}</span>
+      <div className="relative z-10 px-4 mb-3">
+        <div className="max-w-3xl mx-auto sky-card rounded-2xl p-3">
+          <div className="flex items-center justify-between mb-2 text-xs font-golos text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <span style={{ color: slide.accent }}>✈️</span>
+              <span className="font-semibold text-navy">{slide.scene}</span>
+            </div>
+            <span>{current + 1} из {SLIDES.length}</span>
           </div>
-          <div className="w-full bg-muted/50 rounded-full h-2">
-            <div
-              className="progress-bar transition-all duration-500"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-          <div className="flex gap-1 mt-2">
-            {SLIDES.map((_, i) => (
-              <div
+          {/* Шаги */}
+          <div className="flex gap-1.5">
+            {SLIDES.map((s, i) => (
+              <button
                 key={i}
-                className={`h-1 flex-1 rounded-full transition-all duration-300 ${
-                  i <= current ? "bg-neon-purple" : "bg-muted/50"
-                }`}
+                onClick={() => goTo(i)}
+                className="flex-1 rounded-full transition-all duration-300 h-2"
+                style={{
+                  background: i === current
+                    ? slide.accent
+                    : seen.has(i)
+                    ? `${slide.accent}55`
+                    : "#e0eaff",
+                  transform: i === current ? "scaleY(1.4)" : "scaleY(1)",
+                }}
+                title={s.label}
               />
+            ))}
+          </div>
+          <div className="flex justify-between mt-1.5">
+            {SLIDES.map((s, i) => (
+              <span key={i} className="text-xs text-muted-foreground font-golos" style={{ flex: 1, textAlign: "center", fontSize: 10 }}>
+                {i === current ? <strong style={{ color: slide.accent }}>{s.label}</strong> : s.label}
+              </span>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Основной контент */}
+      {/* Сцена */}
       <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pb-4">
         <div className="max-w-3xl w-full">
           <div
-            className={`transition-all duration-200 ${
-              transitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
-            }`}
+            className={`transition-all duration-200 ${transitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}
           >
-            {/* Сцена с персонажем */}
-            <div className="card-game rounded-3xl border border-white/10 overflow-hidden mb-4">
+            {/* Карточка диалога */}
+            <div className="sky-card rounded-3xl overflow-hidden shadow-xl">
+              <div
+                className="h-1.5 w-full"
+                style={{ background: `linear-gradient(90deg, ${slide.accent}, #ff7eb3)`, width: `${progress}%`, transition: "width 0.5s ease" }}
+              />
+
               <div className="flex flex-col sm:flex-row">
-                {/* Персонаж */}
-                <div className="sm:w-56 flex-shrink-0 flex items-end justify-center bg-gradient-to-b from-transparent to-black/30 pt-6 px-4 sm:px-0">
+                {/* Маскот */}
+                <div className="sm:w-52 flex-shrink-0 flex items-end justify-center pt-4 pb-0 sm:pb-4 px-4"
+                  style={{ background: `linear-gradient(180deg, ${slide.sceneGrad.replace("linear-gradient(160deg, ", "").split(",")[0]?.trim() || "#e8f4ff"} 0%, transparent 100%)` }}
+                >
                   <img
-                    src={CHARACTER_IMG}
-                    alt="Профессор Зная"
-                    className="w-40 sm:w-48 object-contain drop-shadow-2xl"
-                    style={{ maxHeight: "220px" }}
+                    src={MASCOT[slide.mascotMood]}
+                    alt="Инструктор"
+                    className="w-44 sm:w-48 object-contain transition-all duration-500"
+                    style={{
+                      filter: "drop-shadow(0 4px 16px rgba(59,158,255,0.15))",
+                      maxHeight: 230,
+                    }}
                   />
                 </div>
 
-                {/* Диалог */}
-                <div className="flex-1 p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-2xl">{slide.mood}</span>
-                    <span className="font-oswald text-lg font-bold text-white">
-                      {slide.character}
-                    </span>
-                    <span className="ml-auto text-xs px-2 py-1 rounded-full bg-neon-purple/20 text-neon-purple border border-neon-purple/30">
+                {/* Текст */}
+                <div className="flex-1 p-5 sm:p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-oswald font-bold"
+                      style={{ background: slide.accent }}
+                    >
+                      {current + 1}
+                    </div>
+                    <div>
+                      <div className="font-oswald font-bold text-navy text-base">Инструктор</div>
+                      <div className="text-xs text-muted-foreground font-golos">{slide.label}</div>
+                    </div>
+                    <div
+                      className="ml-auto text-xs px-2.5 py-1 rounded-full text-white font-oswald font-semibold"
+                      style={{ background: slide.accent }}
+                    >
                       +{slide.xp} XP
-                    </span>
-                  </div>
-
-                  <div className="relative">
-                    <div className="absolute -left-2 top-3 w-4 h-4 rotate-45 bg-muted/50 border-l border-t border-white/10 hidden sm:block" />
-                    <div className="bg-muted/50 rounded-2xl p-4 border border-white/10">
-                      <p className="text-white font-golos text-base leading-relaxed">
-                        {slide.text}
-                      </p>
                     </div>
                   </div>
 
-                  {/* Индикатор слайда */}
-                  <div className="flex gap-1 mt-4">
-                    {Array.from({ length: 3 }).map((_, i) => (
-                      <div key={i} className={`w-2 h-2 rounded-full animate-pulse-slow ${i === 0 ? "bg-neon-cyan" : "bg-muted"}`} style={{ animationDelay: `${i * 0.3}s` }} />
+                  {/* Диалоговый пузырь */}
+                  <div
+                    className="rounded-2xl rounded-tl-none p-4 mb-4"
+                    style={{ background: `${slide.accent}12`, border: `1.5px solid ${slide.accent}30` }}
+                  >
+                    <p className="text-navy font-golos text-base leading-relaxed">
+                      {slide.text}
+                    </p>
+                  </div>
+
+                  {/* Точки-индикатор печатания */}
+                  <div className="flex gap-1">
+                    {[0,1,2].map(i => (
+                      <div
+                        key={i}
+                        className="w-2 h-2 rounded-full animate-bounce-soft"
+                        style={{ background: slide.accent, animationDelay: `${i * 0.2}s`, opacity: 0.5 }}
+                      />
                     ))}
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Кнопки навигации */}
-            <div className="flex items-center justify-between gap-3">
+            {/* Навигация */}
+            <div className="flex items-center gap-3 mt-4">
               <button
-                onClick={goPrev}
+                onClick={() => goTo(current - 1)}
                 disabled={current === 0}
-                className="flex items-center gap-2 px-5 py-3 rounded-2xl card-game border border-border/50 text-muted-foreground hover:text-white hover:border-neon-purple/50 transition-all btn-game disabled:opacity-30 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 px-5 py-3 rounded-2xl sky-card text-navy btn-sky font-oswald font-semibold disabled:opacity-30 disabled:cursor-not-allowed"
               >
-                <Icon name="ChevronLeft" size={20} />
-                <span>Назад</span>
+                <Icon name="ChevronLeft" size={18} />
+                Назад
               </button>
 
-              {/* Миниатюры слайдов */}
-              <div className="flex gap-2 flex-1 justify-center">
-                {SLIDES.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => goTo(i)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      i === current
-                        ? "bg-neon-purple glow-purple scale-125"
-                        : i < current
-                        ? "bg-neon-cyan/60"
-                        : "bg-muted"
-                    }`}
-                  />
-                ))}
+              <div className="flex-1 text-center text-sm text-muted-foreground font-golos">
+                {current + 1} / {SLIDES.length}
               </div>
 
               {current === SLIDES.length - 1 ? (
                 <button
                   onClick={() => onNavigate("home")}
-                  className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-neon-purple to-neon-cyan text-white font-bold btn-game glow-purple"
+                  className="flex items-center gap-2 px-5 py-3 rounded-2xl text-white font-oswald font-bold btn-sky shadow-lg"
+                  style={{ background: "linear-gradient(135deg, #00b87a, #00d48a)" }}
                 >
-                  <span>Завершить</span>
-                  <span>🎉</span>
+                  Завершить 🎉
                 </button>
               ) : (
                 <button
-                  onClick={goNext}
-                  className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-neon-purple text-white btn-game glow-purple"
+                  onClick={() => goTo(current + 1)}
+                  className="flex items-center gap-2 px-5 py-3 rounded-2xl text-white font-oswald font-semibold btn-sky shadow-md"
+                  style={{ background: slide.accent }}
                 >
-                  <span>Далее</span>
-                  <Icon name="ChevronRight" size={20} />
+                  Далее
+                  <Icon name="ChevronRight" size={18} />
                 </button>
               )}
             </div>

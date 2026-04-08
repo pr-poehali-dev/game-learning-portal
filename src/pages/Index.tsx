@@ -1,14 +1,24 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import Home from "./Home";
+import Novel from "./Novel";
+import Cards from "./Cards";
+import Profile from "./Profile";
+import Achievements from "./Achievements";
 
-const Index = () => {
+type Page = "home" | "novel" | "cards" | "profile" | "achievements";
+
+export default function Index() {
+  const [page, setPage] = useState<Page>("home");
+
+  const navigate = (p: string) => setPage(p as Page);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
-    </div>
+    <>
+      {page === "home" && <Home onNavigate={navigate} />}
+      {page === "novel" && <Novel onNavigate={navigate} />}
+      {page === "cards" && <Cards onNavigate={navigate} />}
+      {page === "profile" && <Profile onNavigate={navigate} />}
+      {page === "achievements" && <Achievements onNavigate={navigate} />}
+    </>
   );
-};
-
-export default Index;
+}

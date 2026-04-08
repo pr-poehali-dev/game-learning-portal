@@ -4,50 +4,52 @@
 
 @layer base {
   :root {
-    --background: 240 20% 8%;
-    --foreground: 210 40% 98%;
+    --background: 210 60% 98%;
+    --foreground: 220 30% 18%;
 
-    --card: 240 18% 12%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 30% 18%;
 
-    --popover: 240 18% 12%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 18%;
 
-    --primary: 280 85% 65%;
+    --primary: 210 90% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 195 100% 50%;
-    --secondary-foreground: 240 20% 8%;
+    --secondary: 340 80% 70%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 240 15% 18%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 210 30% 94%;
+    --muted-foreground: 220 15% 50%;
 
-    --accent: 45 100% 55%;
-    --accent-foreground: 240 20% 8%;
+    --accent: 195 85% 60%;
+    --accent-foreground: 220 30% 18%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 240 15% 22%;
-    --input: 240 15% 22%;
-    --ring: 280 85% 65%;
+    --border: 210 30% 88%;
+    --input: 210 30% 88%;
+    --ring: 210 90% 55%;
 
     --radius: 1rem;
 
-    --neon-purple: #b44dff;
-    --neon-cyan: #00d4ff;
-    --neon-yellow: #ffd700;
-    --neon-pink: #ff4da6;
-    --neon-green: #39ff14;
+    --sky-blue: #3b9eff;
+    --sky-light: #a8d8ff;
+    --pink-soft: #ff7eb3;
+    --pink-light: #ffc2dc;
+    --gold: #f5a623;
+    --navy: #1a3560;
+    --cloud-white: #f0f7ff;
 
-    --sidebar-background: 240 18% 10%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 280 85% 65%;
+    --sidebar-background: 210 40% 96%;
+    --sidebar-foreground: 220 30% 18%;
+    --sidebar-primary: 210 90% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 15% 18%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 240 15% 22%;
-    --sidebar-ring: 280 85% 65%;
+    --sidebar-accent: 210 30% 92%;
+    --sidebar-accent-foreground: 220 30% 18%;
+    --sidebar-border: 210 30% 88%;
+    --sidebar-ring: 210 90% 55%;
   }
 }
 
@@ -55,12 +57,11 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
     font-family: "Golos Text", sans-serif;
+    min-height: 100vh;
   }
-
   h1,
   h2,
   h3,
@@ -77,122 +78,108 @@
     font-family: "Golos Text", sans-serif;
   }
 
-  .neon-purple {
-    color: var(--neon-purple);
-  }
-  .neon-cyan {
-    color: var(--neon-cyan);
-  }
-  .neon-yellow {
-    color: var(--neon-yellow);
-  }
-  .neon-pink {
-    color: var(--neon-pink);
-  }
-
-  .glow-purple {
+  .sky-card {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(59, 158, 255, 0.18);
     box-shadow:
-      0 0 20px rgba(180, 77, 255, 0.5),
-      0 0 40px rgba(180, 77, 255, 0.2);
+      0 4px 24px rgba(59, 158, 255, 0.08),
+      0 1px 4px rgba(0, 0, 0, 0.04);
   }
-  .glow-cyan {
+
+  .sky-card-pink {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 126, 179, 0.22);
     box-shadow:
-      0 0 20px rgba(0, 212, 255, 0.5),
-      0 0 40px rgba(0, 212, 255, 0.2);
-  }
-  .glow-yellow {
-    box-shadow:
-      0 0 20px rgba(255, 215, 0, 0.5),
-      0 0 40px rgba(255, 215, 0, 0.2);
-  }
-  .glow-pink {
-    box-shadow:
-      0 0 20px rgba(255, 77, 166, 0.5),
-      0 0 40px rgba(255, 77, 166, 0.2);
+      0 4px 24px rgba(255, 126, 179, 0.1),
+      0 1px 4px rgba(0, 0, 0, 0.04);
   }
 
-  .text-glow-purple {
-    text-shadow: 0 0 15px rgba(180, 77, 255, 0.8);
-  }
-  .text-glow-cyan {
-    text-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
-  }
-  .text-glow-yellow {
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-  }
-
-  .pixel-border {
-    border: 3px solid;
-    image-rendering: pixelated;
-  }
-
-  .card-game {
-    background: linear-gradient(
-      135deg,
-      rgba(36, 26, 56, 0.9) 0%,
-      rgba(20, 15, 40, 0.95) 100%
-    );
-    border: 1px solid rgba(180, 77, 255, 0.3);
-    backdrop-filter: blur(10px);
-  }
-
-  .btn-game {
+  .btn-sky {
     font-family: "Oswald", sans-serif;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    letter-spacing: 0.04em;
     transition: all 0.2s ease;
   }
-
-  .btn-game:hover {
+  .btn-sky:hover {
     transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 158, 255, 0.28);
+  }
+  .btn-sky:active {
+    transform: translateY(0);
   }
 
-  .btn-game:active {
-    transform: translateY(0px);
+  .btn-pink {
+    font-family: "Oswald", sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: all 0.2s ease;
+  }
+  .btn-pink:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 126, 179, 0.32);
   }
 
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
+  .sky-gradient {
+    background: linear-gradient(
+      180deg,
+      #c8e8ff 0%,
+      #e8f4ff 40%,
+      #fdf0f7 80%,
+      #ffe0ef 100%
+    );
   }
 
-  .animate-pulse-slow {
-    animation: pulse-slow 2s ease-in-out infinite;
+  .panel-gradient {
+    background: linear-gradient(135deg, #eaf5ff 0%, #fff0f7 100%);
   }
 
-  .animate-slide-up {
-    animation: slide-up 0.4s ease-out forwards;
+  .text-navy {
+    color: var(--navy);
+  }
+  .text-sky {
+    color: var(--sky-blue);
+  }
+  .text-pink-soft {
+    color: var(--pink-soft);
+  }
+  .text-gold {
+    color: var(--gold);
   }
 
-  .animate-fade-in {
-    animation: fade-in 0.3s ease-out forwards;
-  }
-
-  .stars-bg {
-    background-image:
-      radial-gradient(circle, rgba(180, 77, 255, 0.15) 1px, transparent 1px),
-      radial-gradient(circle, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
-    background-size:
-      60px 60px,
-      90px 90px;
-    background-position:
-      0 0,
-      30px 30px;
-  }
-
-  .progress-bar {
-    background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
+  .progress-sky {
+    background: linear-gradient(90deg, var(--sky-blue), var(--pink-soft));
     border-radius: 9999px;
-    height: 8px;
     transition: width 0.5s ease;
   }
 
-  .badge-glow {
-    animation: badge-pulse 2s ease-in-out infinite;
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  .animate-float-slow {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out forwards;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.35s ease-out forwards;
+  }
+  .animate-bounce-soft {
+    animation: bounce-soft 2s ease-in-out infinite;
   }
 
-  .hexagon {
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  .star-badge {
+    background: linear-gradient(135deg, #f5a623, #ffdc73);
+    color: #7a4800;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(245, 166, 35, 0.4);
+  }
+
+  .cloud-float {
+    animation: cloud-drift 8s ease-in-out infinite;
   }
 }
 
@@ -202,31 +189,19 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-12px);
+    transform: translateY(-10px);
   }
 }
-
-@keyframes pulse-slow {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
 @keyframes slide-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -235,33 +210,21 @@
     opacity: 1;
   }
 }
-
-@keyframes badge-pulse {
+@keyframes bounce-soft {
   0%,
   100% {
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    transform: translateY(0);
   }
   50% {
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+    transform: translateY(-6px);
   }
 }
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
+@keyframes cloud-drift {
+  0%,
   100% {
-    background-position: 200% 0;
+    transform: translateX(0);
   }
-}
-
-.shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 25%,
-    rgba(255, 255, 255, 0.08) 50%,
-    transparent 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
+  50% {
+    transform: translateX(12px);
+  }
 }

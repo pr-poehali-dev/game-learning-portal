@@ -1,41 +1,42 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
+const MASCOT_POINTER = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/6448c8cb-b6a2-4c6d-b2aa-9b0c6bffdf55.jpg";
+
 interface Card {
   id: number;
   title: string;
   content: string;
   category: string;
   emoji: string;
-  color: string;
-  borderColor: string;
+  accent: string;
+  bg: string;
   difficulty: "легко" | "средне" | "сложно";
   xp: number;
   learned: boolean;
 }
 
 const INITIAL_CARDS: Card[] = [
-  { id: 1, title: "Причинность", content: "Причинно-следственная связь — основа научного мышления. Каждое явление имеет причину, которую можно изучить и понять.", category: "Логика", emoji: "🔗", color: "from-purple-900/60 to-violet-900/60", borderColor: "border-purple-500/40", difficulty: "легко", xp: 15, learned: false },
-  { id: 2, title: "Гипотеза", content: "Научная гипотеза — предположение, которое можно проверить экспериментом. Это отправная точка любого исследования.", category: "Наука", emoji: "🔬", color: "from-blue-900/60 to-cyan-900/60", borderColor: "border-cyan-500/40", difficulty: "легко", xp: 15, learned: false },
-  { id: 3, title: "Критическое мышление", content: "Умение анализировать информацию, задавать правильные вопросы и не принимать ничего на веру без проверки.", category: "Логика", emoji: "🧠", color: "from-green-900/60 to-teal-900/60", borderColor: "border-green-500/40", difficulty: "средне", xp: 25, learned: false },
-  { id: 4, title: "Индукция", content: "Логический метод, при котором общий вывод делается на основе частных наблюдений. От частного — к общему.", category: "Логика", emoji: "⬆️", color: "from-yellow-900/60 to-amber-900/60", borderColor: "border-yellow-500/40", difficulty: "средне", xp: 25, learned: false },
-  { id: 5, title: "Дедукция", content: "Обратный индукции метод: от общего принципа приходим к частному выводу. Основа математики и философии.", category: "Логика", emoji: "⬇️", color: "from-orange-900/60 to-red-900/60", borderColor: "border-orange-500/40", difficulty: "средне", xp: 25, learned: false },
-  { id: 6, title: "Когнитивные искажения", content: "Систематические ошибки мышления, которые влияют на наши суждения. Зная их, можно принимать лучшие решения.", category: "Психология", emoji: "🌀", color: "from-pink-900/60 to-rose-900/60", borderColor: "border-pink-500/40", difficulty: "сложно", xp: 40, learned: false },
-  { id: 7, title: "Эффект Даннинга-Крюгера", content: "Люди с малым опытом склонны переоценивать свои знания, а эксперты — недооценивать. Осознание этого — первый шаг к мудрости.", category: "Психология", emoji: "📊", color: "from-indigo-900/60 to-purple-900/60", borderColor: "border-indigo-500/40", difficulty: "сложно", xp: 40, learned: false },
-  { id: 8, title: "Бритва Оккама", content: "«Не умножай сущности без необходимости». Простое объяснение предпочтительнее сложного, если оба одинаково верны.", category: "Философия", emoji: "🪒", color: "from-slate-800/60 to-gray-900/60", borderColor: "border-slate-500/40", difficulty: "средне", xp: 25, learned: false },
-  { id: 9, title: "Принцип Парето", content: "20% усилий дают 80% результата. Найди те 20% действий, которые приносят наибольший эффект в твоей области.", category: "Эффективность", emoji: "📈", color: "from-emerald-900/60 to-green-900/60", borderColor: "border-emerald-500/40", difficulty: "легко", xp: 15, learned: false },
-  { id: 10, title: "Петля обратной связи", content: "Система, в которой результат действия влияет на само действие. Ключевой механизм обучения и самосовершенствования.", category: "Системы", emoji: "🔄", color: "from-teal-900/60 to-cyan-900/60", borderColor: "border-teal-500/40", difficulty: "средне", xp: 25, learned: false },
-  { id: 11, title: "Ментальные модели", content: "Упрощённые представления о том, как работает мир. Чем больше ментальных моделей ты знаешь, тем лучше решаешь задачи.", category: "Мышление", emoji: "🗺️", color: "from-violet-900/60 to-fuchsia-900/60", borderColor: "border-violet-500/40", difficulty: "сложно", xp: 40, learned: false },
-  { id: 12, title: "Первые принципы", content: "Метод мышления Илона Маска: разбить проблему на фундаментальные истины и выстроить решение с нуля, не опираясь на аналогии.", category: "Мышление", emoji: "🏗️", color: "from-blue-900/60 to-indigo-900/60", borderColor: "border-blue-500/40", difficulty: "сложно", xp: 40, learned: false },
+  { id: 1, title: "Подъёмная сила", content: "Возникает из-за разности давлений над и под крылом. Верхняя поверхность — выпуклая, воздух движется быстрее → давление ниже. Это и поднимает самолёт в воздух.", category: "Аэродинамика", emoji: "🛫", accent: "#3b9eff", bg: "#e8f4ff", difficulty: "легко", xp: 15, learned: false },
+  { id: 2, title: "Лобовое сопротивление", content: "Сила, противодействующая движению самолёта. Чем обтекаемее форма фюзеляжа, тем меньше сопротивление и тем экономичнее полёт.", category: "Аэродинамика", emoji: "💨", accent: "#1a6fd4", bg: "#dceeff", difficulty: "легко", xp: 15, learned: false },
+  { id: 3, title: "Тяга двигателя", content: "Реактивная или воздушно-винтовая сила, двигающая самолёт вперёд. Для полёта тяга должна превышать лобовое сопротивление.", category: "Двигатели", emoji: "🔥", accent: "#ff7433", bg: "#fff0e8", difficulty: "легко", xp: 15, learned: false },
+  { id: 4, title: "Элероны", content: "Подвижные части крыла, управляющие креном — наклоном самолёта по продольной оси. Один элерон идёт вверх, второй вниз — самолёт кренится.", category: "Управление", emoji: "🎮", accent: "#7c5cfc", bg: "#f0ecff", difficulty: "средне", xp: 25, learned: false },
+  { id: 5, title: "Руль высоты", content: "Расположен на горизонтальном хвостовом стабилизаторе. Управляет тангажем: поднимает или опускает нос самолёта.", category: "Управление", emoji: "↕️", accent: "#ff7eb3", bg: "#fff0f7", difficulty: "средне", xp: 25, learned: false },
+  { id: 6, title: "Руль направления", content: "Вертикальная поверхность на хвосте. Управляет рысканием — поворотами носа влево и вправо в горизонтальной плоскости.", category: "Управление", emoji: "↔️", accent: "#00b87a", bg: "#e8fff5", difficulty: "средне", xp: 25, learned: false },
+  { id: 7, title: "Флаттер", content: "Опасные аэроупругие колебания конструкции при превышении критической скорости. Именно поэтому самолёты проектируются с запасом жёсткости.", category: "Безопасность", emoji: "⚠️", accent: "#f5a623", bg: "#fff8e8", difficulty: "сложно", xp: 40, learned: false },
+  { id: 8, title: "Сваливание", content: "Резкая потеря подъёмной силы при превышении критического угла атаки. Лётчик должен немедленно отдать штурвал от себя для восстановления управляемости.", category: "Безопасность", emoji: "📉", accent: "#e84a5f", bg: "#ffe8ec", difficulty: "сложно", xp: 40, learned: false },
+  { id: 9, title: "Угол атаки", content: "Угол между хордой крыла и направлением набегающего потока воздуха. Оптимальный угол атаки обеспечивает максимальное аэродинамическое качество.", category: "Аэродинамика", emoji: "📐", accent: "#3b9eff", bg: "#e8f4ff", difficulty: "средне", xp: 25, learned: false },
+  { id: 10, title: "Скороподъёмность", content: "Вертикальная скорость набора высоты в метрах в секунду. Зависит от избытка тяги над сопротивлением и угла набора.", category: "Лётные характеристики", emoji: "📈", accent: "#00b87a", bg: "#e8fff5", difficulty: "средне", xp: 25, learned: false },
+  { id: 11, title: "Крейсерская скорость", content: "Оптимальная скорость горизонтального полёта, при которой достигается баланс между расходом топлива и дальностью полёта.", category: "Лётные характеристики", emoji: "✈️", accent: "#1a6fd4", bg: "#dceeff", difficulty: "легко", xp: 15, learned: false },
+  { id: 12, title: "Воздушное судно (ВС)", content: "Летательный аппарат тяжелее воздуха с двигателем и крыльями, создающими подъёмную силу при движении. Подразделяются на самолёты, вертолёты и другие типы.", category: "Основы", emoji: "🛩️", accent: "#7c5cfc", bg: "#f0ecff", difficulty: "легко", xp: 15, learned: false },
 ];
 
-const CATEGORIES = ["Все", "Логика", "Наука", "Психология", "Философия", "Эффективность", "Системы", "Мышление"];
-const DIFFICULTIES = ["Все", "легко", "средне", "сложно"];
+const CATEGORIES = ["Все", "Аэродинамика", "Двигатели", "Управление", "Безопасность", "Лётные характеристики", "Основы"];
 
-const DIFF_COLORS: Record<string, string> = {
-  "легко": "text-neon-green border-green-500/40 bg-green-900/20",
-  "средне": "text-neon-yellow border-yellow-500/40 bg-yellow-900/20",
-  "сложно": "text-neon-pink border-pink-500/40 bg-pink-900/20",
+const DIFF_STYLE: Record<string, { label: string; color: string; bg: string }> = {
+  "легко":   { label: "🟢 Легко",  color: "#00b87a", bg: "#e8fff5" },
+  "средне":  { label: "🟡 Средне", color: "#f5a623", bg: "#fff8e8" },
+  "сложно":  { label: "🔴 Сложно", color: "#e84a5f", bg: "#ffe8ec" },
 };
 
 interface CardsProps {
@@ -46,7 +47,7 @@ export default function Cards({ onNavigate }: CardsProps) {
   const [cards, setCards] = useState(INITIAL_CARDS);
   const [category, setCategory] = useState("Все");
   const [difficulty, setDifficulty] = useState("Все");
-  const [flipped, setFlipped] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState<number | null>(null);
   const [totalXp, setTotalXp] = useState(0);
 
   const filtered = cards.filter((c) => {
@@ -57,7 +58,8 @@ export default function Cards({ onNavigate }: CardsProps) {
 
   const learnedCount = cards.filter((c) => c.learned).length;
 
-  const toggleLearned = (id: number) => {
+  const toggleLearned = (id: number, e: React.MouseEvent) => {
+    e.stopPropagation();
     setCards((prev) =>
       prev.map((c) => {
         if (c.id !== id) return c;
@@ -69,143 +71,177 @@ export default function Cards({ onNavigate }: CardsProps) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-950 via-background to-blue-950" />
-      <div className="absolute inset-0 stars-bg opacity-30" />
+    <div className="min-h-screen flex flex-col relative overflow-hidden" style={{ background: "linear-gradient(160deg, #e0f0ff 0%, #fdf0f8 60%, #e8f4ff 100%)" }}>
+      {/* Облака */}
+      {[{ x: 3, y: 4, w: 160 }, { x: 65, y: 2, w: 200 }].map((c, i) => (
+        <div
+          key={i}
+          className="absolute cloud-float pointer-events-none opacity-60"
+          style={{
+            left: `${c.x}%`, top: `${c.y}%`,
+            width: c.w, height: Math.round(c.w * 0.4),
+            background: "radial-gradient(ellipse at 40% 40%, rgba(255,255,255,0.9) 30%, transparent 80%)",
+            borderRadius: "50%",
+            animationDelay: `${i * 3}s`,
+          }}
+        />
+      ))}
 
       {/* Шапка */}
-      <header className="relative z-10 flex items-center justify-between px-4 py-4">
+      <header className="relative z-10 flex items-center justify-between px-4 py-3">
         <button
           onClick={() => onNavigate("home")}
-          className="flex items-center gap-2 px-3 py-2 rounded-xl card-game border border-border/50 text-muted-foreground hover:text-white hover:border-neon-cyan/50 transition-all btn-game text-sm"
+          className="flex items-center gap-2 px-3 py-2 rounded-xl sky-card text-navy text-sm btn-sky font-oswald font-semibold"
         >
-          <Icon name="Home" size={16} />
+          <Icon name="Home" size={15} />
           <span>Главная</span>
         </button>
 
-        <div className="flex items-center gap-3">
-          <div className="px-3 py-2 rounded-xl card-game border border-neon-cyan/30 text-sm font-golos">
+        <div className="flex items-center gap-2">
+          <div className="px-3 py-2 rounded-xl sky-card text-sm font-golos border border-sky-100">
             <span className="text-muted-foreground">Изучено: </span>
-            <span className="text-neon-cyan font-bold">{learnedCount}/{cards.length}</span>
+            <span className="font-bold text-sky">{learnedCount}/{cards.length}</span>
           </div>
-          <div className="px-3 py-2 rounded-xl card-game border border-neon-yellow/30">
-            <span className="text-neon-yellow font-oswald font-bold text-sm">+{totalXp} XP</span>
-          </div>
+          {totalXp > 0 && (
+            <div className="px-3 py-2 rounded-xl sky-card text-sm font-oswald font-bold text-gold border border-yellow-200">
+              +{totalXp} XP
+            </div>
+          )}
         </div>
       </header>
 
       <div className="relative z-10 flex-1 px-4 pb-8">
         <div className="max-w-5xl mx-auto">
-          {/* Заголовок */}
-          <div className="mb-6 text-center">
-            <h1 className="font-oswald text-4xl font-bold text-white text-glow-cyan mb-2">
-              🃏 Карточки Знаний
-            </h1>
-            <p className="text-muted-foreground font-golos">
-              Нажми на карточку, чтобы узнать подробности
-            </p>
+
+          {/* Заголовок с маскотом */}
+          <div className="flex items-end gap-4 mb-5">
+            <img
+              src={MASCOT_POINTER}
+              alt="Инструктор"
+              className="w-24 sm:w-28 object-contain flex-shrink-0"
+              style={{ filter: "drop-shadow(0 4px 12px rgba(59,158,255,0.15))" }}
+            />
+            <div className="sky-card rounded-2xl rounded-bl-none px-5 py-3 mb-2 flex-1 border border-sky-100">
+              <h1 className="font-oswald text-2xl sm:text-3xl font-bold text-navy mb-0.5">
+                Карточки Знаний
+              </h1>
+              <p className="text-sm text-muted-foreground font-golos">
+                Нажми на карточку, чтобы открыть описание
+              </p>
+            </div>
           </div>
 
           {/* Прогресс */}
-          <div className="mb-6 card-game rounded-2xl p-4 border border-neon-cyan/20">
-            <div className="flex items-center justify-between mb-2 text-sm font-golos">
+          <div className="sky-card rounded-2xl p-3 mb-4 border border-sky-100">
+            <div className="flex items-center justify-between mb-1.5 text-sm font-golos">
               <span className="text-muted-foreground">Прогресс освоения</span>
-              <span className="text-neon-cyan">{Math.round((learnedCount / cards.length) * 100)}%</span>
+              <span className="font-bold text-sky">{Math.round((learnedCount / cards.length) * 100)}%</span>
             </div>
-            <div className="w-full bg-muted/50 rounded-full h-3">
+            <div className="w-full rounded-full h-2.5" style={{ background: "#e0eeff" }}>
               <div
-                className="h-3 rounded-full transition-all duration-500"
+                className="h-2.5 rounded-full transition-all duration-500"
                 style={{
                   width: `${(learnedCount / cards.length) * 100}%`,
-                  background: "linear-gradient(90deg, #00d4ff, #b44dff)",
+                  background: "linear-gradient(90deg, #3b9eff, #ff7eb3)",
                 }}
               />
             </div>
           </div>
 
-          {/* Фильтры категорий */}
+          {/* Фильтры */}
           <div className="mb-3 flex gap-2 flex-wrap">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}
-                className={`px-3 py-1 rounded-full text-sm font-golos transition-all ${
+                className="px-3 py-1 rounded-full text-sm font-golos transition-all border"
+                style={
                   category === cat
-                    ? "bg-neon-cyan text-background font-bold"
-                    : "card-game border border-border/50 text-muted-foreground hover:text-white"
-                }`}
+                    ? { background: "#3b9eff", color: "white", borderColor: "#3b9eff", fontWeight: 600 }
+                    : { background: "rgba(255,255,255,0.7)", color: "#555", borderColor: "#d0e4ff" }
+                }
               >
                 {cat}
               </button>
             ))}
           </div>
-
-          {/* Фильтры сложности */}
-          <div className="mb-6 flex gap-2">
-            {DIFFICULTIES.map((d) => (
+          <div className="mb-5 flex gap-2 flex-wrap">
+            {["Все", "легко", "средне", "сложно"].map((d) => (
               <button
                 key={d}
                 onClick={() => setDifficulty(d)}
-                className={`px-3 py-1 rounded-full text-sm font-golos border transition-all ${
+                className="px-3 py-1 rounded-full text-sm font-golos transition-all border"
+                style={
                   difficulty === d
-                    ? "bg-neon-purple text-white border-neon-purple font-bold"
-                    : `card-game border-border/50 text-muted-foreground hover:text-white ${d !== "Все" ? DIFF_COLORS[d] : ""}`
-                }`}
+                    ? { background: "#ff7eb3", color: "white", borderColor: "#ff7eb3", fontWeight: 600 }
+                    : { background: "rgba(255,255,255,0.7)", color: "#777", borderColor: "#ffd0e8" }
+                }
               >
-                {d === "легко" ? "🟢 " : d === "средне" ? "🟡 " : d === "сложно" ? "🔴 " : ""}{d}
+                {d === "легко" ? "🟢 Легко" : d === "средне" ? "🟡 Средне" : d === "сложно" ? "🔴 Сложно" : "Все уровни"}
               </button>
             ))}
           </div>
 
-          {/* Сетка карточек */}
+          {/* Сетка */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((card) => (
               <div
                 key={card.id}
-                className={`relative card-game rounded-2xl border ${card.borderColor} overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 ${
-                  card.learned ? "opacity-70" : ""
-                }`}
-                onClick={() => setFlipped(flipped === card.id ? null : card.id)}
+                onClick={() => setExpanded(expanded === card.id ? null : card.id)}
+                className="relative rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden"
+                style={{
+                  background: card.learned ? `${card.bg}cc` : card.bg,
+                  border: `1.5px solid ${card.accent}33`,
+                  boxShadow: `0 2px 12px ${card.accent}14`,
+                  opacity: card.learned ? 0.8 : 1,
+                }}
               >
-                {/* Фон карточки */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${card.color}`} />
+                {/* Верхняя полоска акцента */}
+                <div className="h-1" style={{ background: card.accent }} />
 
                 {card.learned && (
-                  <div className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full bg-neon-green/20 border border-neon-green/50 flex items-center justify-center text-sm">
+                  <div
+                    className="absolute top-3 right-3 w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                    style={{ background: "#00b87a" }}
+                  >
                     ✓
                   </div>
                 )}
 
-                <div className="relative p-5">
-                  <div className="flex items-start justify-between mb-3">
-                    <span className="text-4xl">{card.emoji}</span>
-                    <span className={`text-xs px-2 py-1 rounded-full border font-golos ${DIFF_COLORS[card.difficulty]}`}>
-                      {card.difficulty}
+                <div className="p-4">
+                  <div className="flex items-start justify-between mb-2">
+                    <span className="text-3xl">{card.emoji}</span>
+                    <span
+                      className="text-xs px-2 py-0.5 rounded-full font-golos"
+                      style={{ background: DIFF_STYLE[card.difficulty].bg, color: DIFF_STYLE[card.difficulty].color }}
+                    >
+                      {DIFF_STYLE[card.difficulty].label}
                     </span>
                   </div>
 
-                  <div className="mb-1 text-xs text-muted-foreground font-golos">{card.category}</div>
-                  <h3 className="font-oswald text-xl font-bold text-white mb-2">{card.title}</h3>
+                  <div className="text-xs font-golos mb-1" style={{ color: card.accent }}>{card.category}</div>
+                  <h3 className="font-oswald text-lg font-bold text-navy mb-1">{card.title}</h3>
 
-                  {flipped === card.id ? (
+                  {expanded === card.id ? (
                     <div className="animate-fade-in">
-                      <p className="text-muted-foreground text-sm font-golos leading-relaxed mb-4">
+                      <p className="text-sm font-golos text-muted-foreground leading-relaxed mb-3">
                         {card.content}
                       </p>
                       <button
-                        onClick={(e) => { e.stopPropagation(); toggleLearned(card.id); }}
-                        className={`w-full py-2 rounded-xl text-sm font-oswald font-bold transition-all btn-game ${
+                        onClick={(e) => toggleLearned(card.id, e)}
+                        className="w-full py-2 rounded-xl text-sm font-oswald font-bold transition-all"
+                        style={
                           card.learned
-                            ? "bg-muted text-muted-foreground"
-                            : "bg-neon-cyan text-background glow-cyan"
-                        }`}
+                            ? { background: "#e8f4e8", color: "#00b87a", border: "1.5px solid #00b87a44" }
+                            : { background: card.accent, color: "white" }
+                        }
                       >
-                        {card.learned ? "✓ Изучено" : `✓ Отметить изученным (+${card.xp} XP)`}
+                        {card.learned ? "✓ Изучено" : `Отметить изученным (+${card.xp} XP)`}
                       </button>
                     </div>
                   ) : (
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground font-golos mt-2">
-                      <Icon name="Eye" size={12} />
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground font-golos mt-1">
+                      <Icon name="ChevronDown" size={12} />
                       <span>Нажми для подробностей</span>
                     </div>
                   )}
