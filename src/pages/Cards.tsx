@@ -1,25 +1,13 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
+import CardDetail, { CardData } from "./CardDetail";
 
 const MASCOT_POINTER = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/6448c8cb-b6a2-4c6d-b2aa-9b0c6bffdf55.jpg";
 
-interface Card {
-  id: number;
-  title: string;
-  content: string;
-  category: string;
-  emoji: string;
-  accent: string;
-  bg: string;
-  difficulty: "легко" | "средне" | "сложно";
-  xp: number;
-  learned: boolean;
-}
-
-const INITIAL_CARDS: Card[] = [
+const INITIAL_CARDS: CardData[] = [
   { id: 1, title: "Подъёмная сила", content: "Возникает из-за разности давлений над и под крылом. Верхняя поверхность — выпуклая, воздух движется быстрее → давление ниже. Это и поднимает самолёт в воздух.", category: "Аэродинамика", emoji: "🛫", accent: "#3b9eff", bg: "#e8f4ff", difficulty: "легко", xp: 15, learned: false },
   { id: 2, title: "Лобовое сопротивление", content: "Сила, противодействующая движению самолёта. Чем обтекаемее форма фюзеляжа, тем меньше сопротивление и тем экономичнее полёт.", category: "Аэродинамика", emoji: "💨", accent: "#1a6fd4", bg: "#dceeff", difficulty: "легко", xp: 15, learned: false },
-  { id: 3, title: "Тяга двигателя", content: "Реактивная или воздушно-винтовая сила, двигающая самолёт вперёд. Для полёта тяга должна превышать лобовое сопротивление.", category: "Двигатели", emoji: "🔥", accent: "#ff7433", bg: "#fff0e8", difficulty: "легко", xp: 15, learned: false },
+  { id: 3, title: "Тяга двигателя", content: "Реактивная или воздушно-винтовая сила, двигающая самолёт вперёд. Для полёта тяга должна превышать лобовое сопротивление.", category: "Двигатели", emoji: "🔥", accent: "#ff7433", bg: "#fff0e8", difficulty: "легко", xp: 15, learned: false, specs: [{ label: "Тип", value: "Реактивный / Турбовинтовой" }, { label: "Принцип", value: "Реакция отброшенной массы" }, { label: "Измеряется в", value: "кН (килоньютонах)" }] },
   { id: 4, title: "Элероны", content: "Подвижные части крыла, управляющие креном — наклоном самолёта по продольной оси. Один элерон идёт вверх, второй вниз — самолёт кренится.", category: "Управление", emoji: "🎮", accent: "#7c5cfc", bg: "#f0ecff", difficulty: "средне", xp: 25, learned: false },
   { id: 5, title: "Руль высоты", content: "Расположен на горизонтальном хвостовом стабилизаторе. Управляет тангажем: поднимает или опускает нос самолёта.", category: "Управление", emoji: "↕️", accent: "#ff7eb3", bg: "#fff0f7", difficulty: "средне", xp: 25, learned: false },
   { id: 6, title: "Руль направления", content: "Вертикальная поверхность на хвосте. Управляет рысканием — поворотами носа влево и вправо в горизонтальной плоскости.", category: "Управление", emoji: "↔️", accent: "#00b87a", bg: "#e8fff5", difficulty: "средне", xp: 25, learned: false },
@@ -34,9 +22,9 @@ const INITIAL_CARDS: Card[] = [
 const CATEGORIES = ["Все", "Аэродинамика", "Двигатели", "Управление", "Безопасность", "Лётные характеристики", "Основы"];
 
 const DIFF_STYLE: Record<string, { label: string; color: string; bg: string }> = {
-  "легко":   { label: "🟢 Легко",  color: "#00b87a", bg: "#e8fff5" },
-  "средне":  { label: "🟡 Средне", color: "#f5a623", bg: "#fff8e8" },
-  "сложно":  { label: "🔴 Сложно", color: "#e84a5f", bg: "#ffe8ec" },
+  "легко":  { label: "🟢 Легко",  color: "#00b87a", bg: "#e8fff5" },
+  "средне": { label: "🟡 Средне", color: "#f5a623", bg: "#fff8e8" },
+  "сложно": { label: "🔴 Сложно", color: "#e84a5f", bg: "#ffe8ec" },
 };
 
 interface CardsProps {
@@ -47,8 +35,8 @@ export default function Cards({ onNavigate }: CardsProps) {
   const [cards, setCards] = useState(INITIAL_CARDS);
   const [category, setCategory] = useState("Все");
   const [difficulty, setDifficulty] = useState("Все");
-  const [expanded, setExpanded] = useState<number | null>(null);
   const [totalXp, setTotalXp] = useState(0);
+  const [openCard, setOpenCard] = useState<CardData | null>(null);
 
   const filtered = cards.filter((c) => {
     const catOk = category === "Все" || c.category === category;
@@ -58,17 +46,30 @@ export default function Cards({ onNavigate }: CardsProps) {
 
   const learnedCount = cards.filter((c) => c.learned).length;
 
-  const toggleLearned = (id: number, e: React.MouseEvent) => {
-    e.stopPropagation();
+  const toggleLearned = (id: number) => {
     setCards((prev) =>
       prev.map((c) => {
         if (c.id !== id) return c;
         if (!c.learned) setTotalXp((x) => x + c.xp);
         else setTotalXp((x) => x - c.xp);
-        return { ...c, learned: !c.learned };
+        const updated = { ...c, learned: !c.learned };
+        if (openCard?.id === id) setOpenCard(updated);
+        return updated;
       })
     );
   };
+
+  // Детальная страница карточки
+  if (openCard) {
+    const liveCard = cards.find((c) => c.id === openCard.id) ?? openCard;
+    return (
+      <CardDetail
+        card={liveCard}
+        onBack={() => setOpenCard(null)}
+        onToggleLearned={toggleLearned}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden" style={{ background: "linear-gradient(160deg, #e0f0ff 0%, #fdf0f8 60%, #e8f4ff 100%)" }}>
@@ -96,7 +97,6 @@ export default function Cards({ onNavigate }: CardsProps) {
           <Icon name="Home" size={15} />
           <span>Главная</span>
         </button>
-
         <div className="flex items-center gap-2">
           <div className="px-3 py-2 rounded-xl sky-card text-sm font-golos border border-sky-100">
             <span className="text-muted-foreground">Изучено: </span>
@@ -114,7 +114,7 @@ export default function Cards({ onNavigate }: CardsProps) {
         <div className="max-w-5xl mx-auto">
 
           {/* Заголовок с маскотом */}
-          <div className="flex items-end gap-4 mb-5">
+          <div className="flex items-end gap-4 mb-4">
             <img
               src={MASCOT_POINTER}
               alt="Инструктор"
@@ -122,34 +122,26 @@ export default function Cards({ onNavigate }: CardsProps) {
               style={{ filter: "drop-shadow(0 4px 12px rgba(59,158,255,0.15))" }}
             />
             <div className="sky-card rounded-2xl rounded-bl-none px-5 py-3 mb-2 flex-1 border border-sky-100">
-              <h1 className="font-oswald text-2xl sm:text-3xl font-bold text-navy mb-0.5">
-                Карточки Знаний
-              </h1>
-              <p className="text-sm text-muted-foreground font-golos">
-                Нажми на карточку, чтобы открыть описание
-              </p>
+              <h1 className="font-oswald text-2xl sm:text-3xl font-bold text-navy mb-0.5">Карточки Знаний</h1>
+              <p className="text-sm text-muted-foreground font-golos">Нажми на карточку, чтобы открыть полное описание</p>
             </div>
           </div>
 
-          {/* Прогресс */}
-          <div className="sky-card rounded-2xl p-3 mb-4 border border-sky-100">
-            <div className="flex items-center justify-between mb-1.5 text-sm font-golos">
-              <span className="text-muted-foreground">Прогресс освоения</span>
-              <span className="font-bold text-sky">{Math.round((learnedCount / cards.length) * 100)}%</span>
-            </div>
-            <div className="w-full rounded-full h-2.5" style={{ background: "#e0eeff" }}>
+          {/* Прогресс — компактный */}
+          <div className="flex items-center gap-3 mb-4">
+            <div className="flex-1 rounded-full h-2" style={{ background: "#e0eeff" }}>
               <div
-                className="h-2.5 rounded-full transition-all duration-500"
-                style={{
-                  width: `${(learnedCount / cards.length) * 100}%`,
-                  background: "linear-gradient(90deg, #3b9eff, #ff7eb3)",
-                }}
+                className="h-2 rounded-full transition-all duration-500"
+                style={{ width: `${(learnedCount / cards.length) * 100}%`, background: "linear-gradient(90deg, #3b9eff, #ff7eb3)" }}
               />
             </div>
+            <span className="text-xs text-muted-foreground font-golos whitespace-nowrap">
+              {learnedCount} / {cards.length} изучено
+            </span>
           </div>
 
           {/* Фильтры */}
-          <div className="mb-3 flex gap-2 flex-wrap">
+          <div className="mb-2 flex gap-2 flex-wrap">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
@@ -182,26 +174,25 @@ export default function Cards({ onNavigate }: CardsProps) {
             ))}
           </div>
 
-          {/* Сетка */}
+          {/* Сетка карточек */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((card) => (
-              <div
+              <button
                 key={card.id}
-                onClick={() => setExpanded(expanded === card.id ? null : card.id)}
-                className="relative rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden"
+                onClick={() => setOpenCard(card)}
+                className="relative rounded-2xl text-left cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden group"
                 style={{
                   background: card.learned ? `${card.bg}cc` : card.bg,
                   border: `1.5px solid ${card.accent}33`,
                   boxShadow: `0 2px 12px ${card.accent}14`,
-                  opacity: card.learned ? 0.8 : 1,
                 }}
               >
-                {/* Верхняя полоска акцента */}
+                {/* Акцентная полоска */}
                 <div className="h-1" style={{ background: card.accent }} />
 
                 {card.learned && (
                   <div
-                    className="absolute top-3 right-3 w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                    className="absolute top-3 right-3 w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold z-10"
                     style={{ background: "#00b87a" }}
                   >
                     ✓
@@ -219,34 +210,23 @@ export default function Cards({ onNavigate }: CardsProps) {
                     </span>
                   </div>
 
-                  <div className="text-xs font-golos mb-1" style={{ color: card.accent }}>{card.category}</div>
-                  <h3 className="font-oswald text-lg font-bold text-navy mb-1">{card.title}</h3>
+                  <div className="text-xs font-golos mb-0.5" style={{ color: card.accent }}>{card.category}</div>
+                  <h3 className="font-oswald text-lg font-bold text-navy mb-2">{card.title}</h3>
 
-                  {expanded === card.id ? (
-                    <div className="animate-fade-in">
-                      <p className="text-sm font-golos text-muted-foreground leading-relaxed mb-3">
-                        {card.content}
-                      </p>
-                      <button
-                        onClick={(e) => toggleLearned(card.id, e)}
-                        className="w-full py-2 rounded-xl text-sm font-oswald font-bold transition-all"
-                        style={
-                          card.learned
-                            ? { background: "#e8f4e8", color: "#00b87a", border: "1.5px solid #00b87a44" }
-                            : { background: card.accent, color: "white" }
-                        }
-                      >
-                        {card.learned ? "✓ Изучено" : `Отметить изученным (+${card.xp} XP)`}
-                      </button>
+                  {/* Краткий анонс */}
+                  <p className="text-xs font-golos text-muted-foreground line-clamp-2 leading-relaxed mb-3">
+                    {card.content}
+                  </p>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1 text-xs font-golos" style={{ color: card.accent }}>
+                      <Icon name="ArrowRight" size={12} />
+                      <span>Подробнее</span>
                     </div>
-                  ) : (
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground font-golos mt-1">
-                      <Icon name="ChevronDown" size={12} />
-                      <span>Нажми для подробностей</span>
-                    </div>
-                  )}
+                    <span className="text-xs font-oswald font-bold" style={{ color: card.accent }}>+{card.xp} XP</span>
+                  </div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
 
