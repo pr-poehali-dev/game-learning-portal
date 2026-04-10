@@ -326,6 +326,7 @@ export default function Novel({ onNavigate }: NovelProps) {
           onFinish={handleQuizFinish}
           mascotHappy={MASCOT.happy}
           mascotPointer={MASCOT.pointer}
+          mascotWrong={MASCOT.thumbs}
         />
       )}
 
@@ -342,7 +343,7 @@ export default function Novel({ onNavigate }: NovelProps) {
                   <img
                     src={MASCOT[slide.mascotMood]}
                     alt="Инструктор"
-                    className="w-48 sm:w-56 object-contain transition-all duration-500 animate-float"
+                    className="w-64 sm:w-72 object-contain transition-all duration-500 animate-float"
                     style={{ filter: "drop-shadow(0 4px 16px rgba(59,158,255,0.15))" }}
                   />
                 </div>

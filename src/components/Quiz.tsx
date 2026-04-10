@@ -47,6 +47,7 @@ interface QuizProps {
   onFinish: (xp: number) => void;   // вызывается после последнего вопроса
   mascotHappy: string;
   mascotPointer: string;
+  mascotWrong: string;
 }
 
 // ─── Утилиты ─────────────────────────────────────────────────────
@@ -64,7 +65,7 @@ const XP_PER_CORRECT = 20;
 
 // ─── Компонент ───────────────────────────────────────────────────
 
-export default function Quiz({ quiz, onFinish, mascotHappy, mascotPointer }: QuizProps) {
+export default function Quiz({ quiz, onFinish, mascotHappy, mascotPointer, mascotWrong }: QuizProps) {
   const [qIndex, setQIndex] = useState(0);
   const [answered, setAnswered] = useState(false);
   const [correct, setCorrect] = useState(false);
@@ -164,23 +165,30 @@ export default function Quiz({ quiz, onFinish, mascotHappy, mascotPointer }: Qui
   // ── Итог ──
   if (showResult) {
     const perfect = score === totalQ;
+    const good = score >= Math.ceil(totalQ / 2);
+    const resultMascot = perfect ? mascotHappy : good ? mascotPointer : mascotWrong;
+    const resultEmoji = perfect ? "🏆" : good ? "📋" : "😤";
+    const resultTitle = perfect ? "Отлично, курсант!" : good ? "Тест завершён!" : "Нужно поработать!";
+    const resultText = perfect
+      ? "Все ответы верны — вы отлично усвоили материал!"
+      : good
+      ? `Правильно: ${score} из ${totalQ}. Повторите материал и станет ещё лучше!`
+      : `Только ${score} из ${totalQ}. Инструктор недовольна — вернитесь к лекции!`;
     return (
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-6 animate-fade-in">
         <div className="max-w-md w-full sky-card rounded-3xl p-6 border border-sky-100 text-center shadow-xl">
           <img
-            src={perfect ? mascotHappy : mascotPointer}
+            src={resultMascot}
             alt="Маскот"
-            className="w-32 mx-auto mb-3 animate-float"
+            className="w-40 mx-auto mb-3 animate-float"
             style={{ filter: "drop-shadow(0 4px 12px rgba(59,158,255,0.18))" }}
           />
-          <div className="text-4xl mb-2">{perfect ? "🏆" : "📋"}</div>
+          <div className="text-4xl mb-2">{resultEmoji}</div>
           <h2 className="font-oswald text-2xl font-bold text-navy mb-1">
-            {perfect ? "Отлично, курсант!" : "Тест завершён!"}
+            {resultTitle}
           </h2>
           <p className="text-muted-foreground font-golos text-sm mb-4">
-            {perfect
-              ? "Все ответы верны — вы отлично усвоили материал!"
-              : `Правильно: ${score} из ${totalQ}. Повторите материал и станет ещё лучше!`}
+            {resultText}
           </p>
 
           {/* Счёт */}
@@ -434,14 +442,20 @@ export default function Quiz({ quiz, onFinish, mascotHappy, mascotPointer }: Qui
               border: `1.5px solid ${correct ? "#00b87a" : "#e84a5f"}44`,
             }}
           >
-            <span className="text-2xl">{correct ? "🎉" : "📖"}</span>
+            <img
+              src={correct ? mascotHappy : mascotWrong}
+              alt=""
+              className="w-16 h-16 object-contain flex-shrink-0"
+              style={{ filter: `drop-shadow(0 2px 8px ${correct ? "rgba(0,184,122,0.2)" : "rgba(232,74,95,0.2)"})` }}
+            />
             <div>
               <div className="font-semibold" style={{ color: correct ? "#00b87a" : "#e84a5f" }}>
                 {correct ? "Верно! Отличная работа!" : "Неверно, но не страшно"}
               </div>
-              {correct && (
-                <div style={{ color: "#00b87a" }}>+{XP_PER_CORRECT} XP заработано</div>
-              )}
+              {correct
+                ? <div style={{ color: "#00b87a" }}>+{XP_PER_CORRECT} XP заработано</div>
+                : <div style={{ color: "#e84a5f" }}>Изучи материал — всё получится!</div>
+              }
             </div>
           </div>
         )}
