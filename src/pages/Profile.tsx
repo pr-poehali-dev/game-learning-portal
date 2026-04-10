@@ -1,6 +1,6 @@
 import Icon from "@/components/ui/icon";
 
-const MASCOT_THUMBS = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/2e9452fe-36ac-4664-a4b9-77962b29491e.png";
+const MASCOT_THUMBS = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/e3a5b438-5fdd-402d-b4d8-7d0a7b300126.png";
 
 const STATS = [
   { icon: "⚡", label: "Очков опыта", value: "340 XP", color: "#f5a623" },
@@ -68,7 +68,7 @@ export default function Profile({ onNavigate }: ProfileProps) {
               {/* Аватар с маскотом */}
               <div className="relative flex-shrink-0">
                 <div
-                  className="w-20 h-20 rounded-2xl overflow-hidden border-2"
+                  className="w-28 h-28 rounded-2xl overflow-hidden border-2"
                   style={{ borderColor: "#3b9eff" }}
                 >
                   <img src={MASCOT_THUMBS} alt="Профиль" className="w-full h-full object-contain" style={{ objectPosition: "top" }} />

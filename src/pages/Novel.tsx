@@ -3,9 +3,9 @@ import Icon from "@/components/ui/icon";
 import Quiz, { QuizData } from "@/components/Quiz";
 
 const MASCOT = {
-  pointer: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/6196e6eb-6503-485c-bb9f-ed54d2281065.png",
-  happy:   "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/3ba9a3c5-c9c9-4a5a-a1ff-703556879fa7.png",
-  thumbs:  "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/2e9452fe-36ac-4664-a4b9-77962b29491e.png",
+  pointer: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/4b016d30-ad5f-4376-94f4-a33fd4f4c464.png",
+  happy:   "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/33ee4302-33d0-4b32-a387-61140be18e8b.png",
+  thumbs:  "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/e3a5b438-5fdd-402d-b4d8-7d0a7b300126.png",
 };
 
 type SlideType = "text" | "image" | "card";
@@ -342,7 +342,7 @@ export default function Novel({ onNavigate }: NovelProps) {
                   <img
                     src={MASCOT[slide.mascotMood]}
                     alt="Инструктор"
-                    className="w-36 sm:w-44 object-contain transition-all duration-500 animate-float"
+                    className="w-48 sm:w-56 object-contain transition-all duration-500 animate-float"
                     style={{ filter: "drop-shadow(0 4px 16px rgba(59,158,255,0.15))" }}
                   />
                 </div>
@@ -379,7 +379,7 @@ export default function Novel({ onNavigate }: NovelProps) {
             {slide.type === "image" && (
               <div className="flex-1 flex flex-col gap-3">
                 <div className="flex items-center gap-2 sky-card rounded-2xl px-4 py-2.5 border border-sky-100">
-                  <img src={MASCOT[slide.mascotMood]} alt="" className="w-10 h-10 object-contain object-top" />
+                  <img src={MASCOT[slide.mascotMood]} alt="" className="w-14 h-14 object-contain object-top" />
                   <div>
                     <span className="font-oswald font-bold text-navy text-sm">Инструктор</span>
                     <span className="mx-2 text-muted-foreground">·</span>
@@ -412,7 +412,7 @@ export default function Novel({ onNavigate }: NovelProps) {
             {slide.type === "card" && (
               <div className="flex-1 flex flex-col gap-3 overflow-y-auto">
                 <div className="flex items-center gap-2 sky-card rounded-2xl px-4 py-2.5 border border-sky-100 flex-shrink-0">
-                  <img src={MASCOT[slide.mascotMood]} alt="" className="w-10 h-10 object-contain object-top" />
+                  <img src={MASCOT[slide.mascotMood]} alt="" className="w-14 h-14 object-contain object-top" />
                   <div>
                     <span className="font-oswald font-bold text-navy text-sm">Изучаем изделие</span>
                     <span className="mx-2 text-muted-foreground">·</span>

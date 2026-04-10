@@ -1,6 +1,6 @@
 import Icon from "@/components/ui/icon";
 
-const MASCOT_HAPPY = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/3ba9a3c5-c9c9-4a5a-a1ff-703556879fa7.png";
+const MASCOT_HAPPY = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/33ee4302-33d0-4b32-a387-61140be18e8b.png";
 
 interface Achievement {
   id: number;
@@ -90,7 +90,7 @@ export default function Achievements({ onNavigate }: AchievementsProps) {
               <img
                 src={MASCOT_HAPPY}
                 alt="Маскот"
-                className="w-20 object-contain flex-shrink-0"
+                className="w-32 object-contain flex-shrink-0"
                 style={{ filter: "drop-shadow(0 4px 8px rgba(245,166,35,0.2))" }}
               />
               <div>

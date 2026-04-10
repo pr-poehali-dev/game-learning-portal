@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
-const MASCOT_THUMBS = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/2e9452fe-36ac-4664-a4b9-77962b29491e.png";
-const MASCOT_HAPPY = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/3ba9a3c5-c9c9-4a5a-a1ff-703556879fa7.png";
+const MASCOT_THUMBS = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/e3a5b438-5fdd-402d-b4d8-7d0a7b300126.png";
+const MASCOT_HAPPY = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/33ee4302-33d0-4b32-a387-61140be18e8b.png";
 
 const CLOUDS = [
   { w: 160, h: 70, x: 5, y: 8, delay: 0 },
@@ -174,7 +174,7 @@ export default function Home({ onNavigate }: HomeProps) {
           <img
             src={mascot}
             alt="Инструктор"
-            className="relative w-64 sm:w-72 lg:w-80 object-contain animate-float transition-all duration-500"
+            className="relative w-80 sm:w-96 lg:w-[26rem] object-contain animate-float transition-all duration-500"
             style={{ filter: "drop-shadow(0 8px 24px rgba(59,158,255,0.2))" }}
           />
           {/* Речевой пузырь */}

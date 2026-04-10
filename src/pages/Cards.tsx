@@ -2,7 +2,7 @@ import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import CardDetail, { CardData } from "./CardDetail";
 
-const MASCOT_POINTER = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/6196e6eb-6503-485c-bb9f-ed54d2281065.png";
+const MASCOT_POINTER = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/92aca3c4-fadc-41f4-aa07-4b85a9f307ca.png";
 
 const INITIAL_CARDS: CardData[] = [
   { id: 1, title: "Подъёмная сила", content: "Возникает из-за разности давлений над и под крылом. Верхняя поверхность — выпуклая, воздух движется быстрее → давление ниже. Это и поднимает самолёт в воздух.", category: "Аэродинамика", emoji: "🛫", accent: "#3b9eff", bg: "#e8f4ff", difficulty: "легко", xp: 15, learned: false },
@@ -118,7 +118,7 @@ export default function Cards({ onNavigate }: CardsProps) {
             <img
               src={MASCOT_POINTER}
               alt="Инструктор"
-              className="w-24 sm:w-28 object-contain flex-shrink-0"
+              className="w-32 sm:w-40 object-contain flex-shrink-0"
               style={{ filter: "drop-shadow(0 4px 12px rgba(59,158,255,0.15))" }}
             />
             <div className="sky-card rounded-2xl rounded-bl-none px-5 py-3 mb-2 flex-1 border border-sky-100">
