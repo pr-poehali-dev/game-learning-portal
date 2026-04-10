@@ -213,13 +213,14 @@ const QUIZZES: Record<number, QuizData> = {
 
 interface NovelProps {
   onNavigate: (page: string) => void;
+  startSlide?: number;
 }
 
 type Mode = "slide" | "quiz";
 
-export default function Novel({ onNavigate }: NovelProps) {
-  const [current, setCurrent] = useState(0);
-  const [seen, setSeen] = useState<Set<number>>(new Set([0]));
+export default function Novel({ onNavigate, startSlide = 0 }: NovelProps) {
+  const [current, setCurrent] = useState(startSlide);
+  const [seen, setSeen] = useState<Set<number>>(new Set([startSlide]));
   const [transitioning, setTransitioning] = useState(false);
   const [mode, setMode] = useState<Mode>("slide");
   const [totalXp, setTotalXp] = useState(0);
