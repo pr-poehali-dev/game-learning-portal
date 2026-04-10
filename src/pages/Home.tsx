@@ -177,27 +177,30 @@ export default function Home({ onNavigate }: HomeProps) {
             className="relative w-80 sm:w-96 lg:w-[26rem] object-contain animate-float transition-all duration-500"
             style={{ filter: "drop-shadow(0 8px 24px rgba(59,158,255,0.2))" }}
           />
-          {/* Речевой пузырь */}
-          <div className="absolute top-10 -left-6 sky-card rounded-2xl rounded-bl-none px-4 py-2 text-sm font-golos text-navy max-w-44 shadow-lg animate-bounce-soft border border-sky-100">
-            Добро пожаловать на борт! ✈️
-          </div>
+
         </div>
       </main>
 
-      {/* Нижняя статистика */}
+      {/* Донат */}
       <div className="relative z-10 px-5 pb-5">
-        <div className="max-w-xl mx-auto grid grid-cols-3 gap-3">
-          {[
-            { icon: "👥", val: "1 200+", label: "курсантов" },
-            { icon: "📚", val: "24", label: "лекции" },
-            { icon: "🏅", val: "50+", label: "достижений" },
-          ].map((s, i) => (
-            <div key={i} className="sky-card rounded-2xl p-3 text-center">
-              <div className="text-2xl mb-1">{s.icon}</div>
-              <div className="font-oswald text-lg font-bold text-navy">{s.val}</div>
-              <div className="text-xs text-muted-foreground font-golos">{s.label}</div>
+        <div className="max-w-xl mx-auto">
+          <a
+            href="#"
+            className="flex items-center gap-4 rounded-2xl px-5 py-4 shadow-md w-full transition-all hover:scale-[1.01] active:scale-[0.99]"
+            style={{ background: "linear-gradient(135deg, #fff8e8, #fff3d6)", border: "1.5px solid #f5a62344" }}
+          >
+            <div
+              className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+              style={{ background: "linear-gradient(135deg, #f5a623, #e08c00)" }}
+            >
+              ☕
             </div>
-          ))}
+            <div className="flex-1 min-w-0">
+              <div className="font-oswald font-bold text-navy text-sm">Поддержи проект</div>
+              <div className="font-golos text-xs text-muted-foreground">Любая сумма помогает развитию курса</div>
+            </div>
+            <Icon name="Heart" size={18} style={{ color: "#f5a623" }} className="flex-shrink-0" />
+          </a>
         </div>
       </div>
     </div>
