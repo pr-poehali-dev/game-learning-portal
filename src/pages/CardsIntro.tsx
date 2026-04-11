@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
+import { MASCOT } from "@/lib/mascot";
 
-const MASCOT_POINTER = "";
-const MASCOT_HAPPY = "";
+const MASCOT_POINTER = MASCOT.reading;
+const MASCOT_HAPPY = MASCOT.success;
 
 interface CardsIntroProps {
   onNavigate: (page: string) => void;

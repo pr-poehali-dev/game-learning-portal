@@ -1,6 +1,7 @@
 import Icon from "@/components/ui/icon";
+import { MASCOT } from "@/lib/mascot";
 
-const MASCOT_HAPPY = "";
+const MASCOT_HAPPY = MASCOT.celebrate;
 
 interface Achievement {
   id: number;

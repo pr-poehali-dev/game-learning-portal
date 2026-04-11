@@ -1,6 +1,7 @@
 import Icon from "@/components/ui/icon";
+import { MASCOT } from "@/lib/mascot";
 
-const MASCOT_THUMBS = "";
+const MASCOT_THUMBS = MASCOT.tough;
 
 const STATS = [
   { icon: "⚡", label: "Очков опыта", value: "340 XP", color: "#f5a623" },

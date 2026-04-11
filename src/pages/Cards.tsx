@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import CardDetail, { CardData } from "./CardDetail";
+import { MASCOT } from "@/lib/mascot";
 
-const MASCOT_POINTER = "";
+const MASCOT_POINTER = MASCOT.lean;
 
 const INITIAL_CARDS: CardData[] = [
   { id: 1, title: "Подъёмная сила", content: "Возникает из-за разности давлений над и под крылом. Верхняя поверхность — выпуклая, воздух движется быстрее → давление ниже. Это и поднимает самолёт в воздух.", category: "Аэродинамика", emoji: "🛫", accent: "#3b9eff", bg: "#e8f4ff", difficulty: "легко", xp: 15, learned: false },

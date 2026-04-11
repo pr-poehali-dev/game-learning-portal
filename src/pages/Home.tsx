@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
+import { MASCOT } from "@/lib/mascot";
 
-const MASCOT_THUMBS = "";
-const MASCOT_HAPPY = "";
+const MASCOT_THUMBS = MASCOT.pointer;
+const MASCOT_HAPPY = MASCOT.celebrate;
 
 const CLOUDS = [
   { w: 160, h: 70, x: 5, y: 8, delay: 0 },

@@ -65,8 +65,22 @@ export const MASCOT_IMAGES: MascotImage[] = [
     description: "В очках, держит лист — спокойный анализ, чтение отчёта, сводка",
   },
 
-  // ── Batch 3 — добавь сюда следующие изображения ──────────────────
-  // { url: "...", tags: [...], description: "..." },
+  // ── Batch 3 ──────────────────────────────────────────────────────
+  {
+    url: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/bdfe5581-83ea-4b47-93ad-5a89ae11586e.png",
+    tags: ["glasses", "reading", "lean", "check", "review", "serious"],
+    description: "В очках, наклонилась над документом — проверка, серьёзный разбор",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/89080a46-eebd-43e3-a3c2-540ecf4a9414.png",
+    tags: ["thumbs_up", "stern", "approve", "pass", "challenge", "tough"],
+    description: "Большой палец вверх, но взгляд строгий — одобрение с вызовом, 'неплохо, но работай'",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/ded02070-834b-4da3-8f69-d7f820224a7b.png",
+    tags: ["celebrate", "victory", "arms_up", "happy", "cheer", "finish", "complete"],
+    description: "Руки вверх, радость — завершение темы, победа, финал лекции",
+  },
 ];
 
 /**
@@ -87,12 +101,15 @@ export function getMascots(tag: string): string[] {
 
 // Удобные константы для частых ситуаций
 export const MASCOT = {
-  pointer:    getMascot("pointer"),     // указывает указкой
-  idea:       getMascot("idea"),        // в очках, палец вверх
-  side:       getMascot("side"),        // вид сбоку/сзади
-  stop:       getMascot("stop"),        // знак стоп
-  no:         getMascot("cross"),       // руки крестом
-  success:    getMascot("thumbs_up"),   // палец вверх, правильный ответ
-  angry:      getMascot("angry"),       // сжатый кулак, серьёзная тема
-  reading:    getMascot("reading"),     // читает документ, брифинг
+  pointer:    getMascot("pointer"),     // указывает указкой — лекция, объяснение
+  idea:       getMascot("idea"),        // в очках, палец вверх — подсказка, факт
+  side:       getMascot("side"),        // вид сбоку/сзади — переход, интрига
+  stop:       getMascot("stop"),        // знак стоп — ошибка, предупреждение
+  no:         getMascot("cross"),       // руки крестом — неверный ответ
+  success:    getMascot("thumbs_up"),   // палец вверх, улыбка — правильный ответ
+  angry:      getMascot("angry"),       // кулак — серьёзная тема, вызов
+  reading:    getMascot("reading"),     // читает документ — брифинг
+  lean:       getMascot("lean"),        // наклонилась над документом — проверка
+  tough:      getMascot("tough"),       // строгий палец вверх — 'неплохо, но давай ещё'
+  celebrate:  getMascot("celebrate"),  // руки вверх — победа, финал
 };

@@ -1,12 +1,7 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import Quiz, { QuizData } from "@/components/Quiz";
-
-const MASCOT = {
-  pointer: "",
-  happy:   "",
-  thumbs:  "",
-};
+import { MASCOT } from "@/lib/mascot";
 
 type SlideType = "text" | "image" | "card";
 interface Spec { label: string; value: string }
@@ -36,7 +31,7 @@ const SLIDES: Slide[] = [
   // ── Глава 1: Аэродинамика ──
   {
     id: 1, type: "text", label: "Введение",
-    mascotMood: "pointer", accent: "#3b9eff",
+    mascotMood: "idea", accent: "#3b9eff",
     sceneGrad: "linear-gradient(160deg, #c8e8ff 0%, #e8f6ff 100%)",
     xp: 10,
     text: "Привет, курсант! Я ваш инструктор. Сегодня мы начинаем изучение авиации — одной из самых захватывающих областей техники. Пристегните ремни!",
@@ -50,7 +45,7 @@ const SLIDES: Slide[] = [
   },
   {
     id: 3, type: "image", label: "Схема крыла",
-    mascotMood: "thumbs", accent: "#7c5cfc",
+    mascotMood: "reading", accent: "#7c5cfc",
     sceneGrad: "linear-gradient(160deg, #eeeaff 0%, #f8f5ff 100%)",
     xp: 15,
     imageCaption: "Здесь будет схема профиля крыла и распределения давлений",
@@ -60,14 +55,14 @@ const SLIDES: Slide[] = [
   // ── Глава 2: Четыре силы ──
   {
     id: 4, type: "text", label: "Четыре силы",
-    mascotMood: "thumbs", accent: "#7c5cfc",
+    mascotMood: "pointer", accent: "#7c5cfc",
     sceneGrad: "linear-gradient(160deg, #e8e0ff 0%, #f5eeff 100%)",
     xp: 30,
     text: "На самолёт действуют четыре основные силы: подъёмная сила, сила тяжести, тяга двигателя и лобовое сопротивление. Задача пилота — управлять их равновесием на каждом этапе полёта.",
   },
   {
     id: 5, type: "card", label: "Изделие: МиГ-29",
-    mascotMood: "thumbs", accent: "#1a6fd4",
+    mascotMood: "lean", accent: "#1a6fd4",
     sceneGrad: "linear-gradient(160deg, #dceeff 0%, #eaf4ff 100%)",
     xp: 40,
     cardTitle: "МиГ-29 «Fulcrum»",
@@ -87,21 +82,21 @@ const SLIDES: Slide[] = [
   // ── Глава 3: Управление ──
   {
     id: 6, type: "text", label: "Органы управления",
-    mascotMood: "thumbs", accent: "#ff7eb3",
+    mascotMood: "pointer", accent: "#ff7eb3",
     sceneGrad: "linear-gradient(160deg, #ffe8f0 0%, #fff4f9 100%)",
     xp: 30,
     text: "Пилот управляет самолётом тремя органами: элероны управляют креном (наклон по крыльям), руль высоты — тангажем (нос вверх/вниз), руль направления — рысканием (повороты носа).",
   },
   {
     id: 7, type: "image", label: "Кабина МиГ-29",
-    mascotMood: "pointer", accent: "#1a6fd4",
+    mascotMood: "reading", accent: "#1a6fd4",
     sceneGrad: "linear-gradient(160deg, #dceeff 0%, #eaf4ff 100%)",
     xp: 15,
     imageCaption: "Здесь будет фотография кабины пилота МиГ-29",
   },
   {
     id: 8, type: "text", label: "Завершение",
-    mascotMood: "happy", accent: "#00b87a",
+    mascotMood: "celebrate", accent: "#00b87a",
     sceneGrad: "linear-gradient(160deg, #c8ffea 0%, #eafff5 100%)",
     xp: 50,
     text: "Отличная работа, курсант! 🎉 Вы прошли первую лекцию по основам авиации. Заработано 200 XP и значок «Первый полёт»! Продолжайте обучение — следующая лекция посвящена двигателям.",
@@ -325,9 +320,9 @@ export default function Novel({ onNavigate, startSlide = 0 }: NovelProps) {
         <Quiz
           quiz={currentQuiz}
           onFinish={handleQuizFinish}
-          mascotHappy={MASCOT.happy}
+          mascotHappy={MASCOT.success}
           mascotPointer={MASCOT.pointer}
-          mascotWrong={MASCOT.thumbs}
+          mascotWrong={MASCOT.no}
         />
       )}
 
