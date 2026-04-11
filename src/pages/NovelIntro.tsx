@@ -1,42 +1,41 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const MASCOT_POINTER = "";
-const MASCOT_HAPPY = "";
+const MASCOT_INTRO = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/64fdfe87-a4fa-42ad-8df4-22b93c78eca9.png";
 
 const CHAPTERS = [
   {
     id: 1,
-    title: "Аэродинамика крыла",
-    description: "Почему самолёт летит? Разбираем подъёмную силу",
-    emoji: "✈️",
+    title: "Системы противодействия нашим изделиям",
+    description: "404 страны — разбираем угрозы в воздухе",
     accent: "#3b9eff",
-    bg: "linear-gradient(135deg, #e8f4ff, #c8e8ff)",
+    bg: "linear-gradient(160deg, #1a2a1a 0%, #2a3a2a 100%)",
     slides: 3,
     minutes: 5,
     startSlide: 0,
+    image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/8566a64f-252d-45b5-83a8-7693bbaf7a57.jpg",
   },
   {
     id: 2,
-    title: "Четыре силы полёта",
-    description: "Тяга, сопротивление, вес и подъёмная сила в балансе",
-    emoji: "⚖️",
+    title: "ВВС в контексте противодействия нашим изделиям",
+    description: "Авиация как инструмент противодействия",
     accent: "#7c5cfc",
-    bg: "linear-gradient(135deg, #f0ecff, #e8e0ff)",
+    bg: "linear-gradient(160deg, #1a1a2a 0%, #2a2a3a 100%)",
     slides: 2,
     minutes: 4,
     startSlide: 3,
+    image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/57c08411-431f-4e7c-bed2-7631a487eadf.jpg",
   },
   {
     id: 3,
-    title: "Управление самолётом",
-    description: "Элероны, рули и как пилот управляет машиной",
-    emoji: "🎮",
-    accent: "#ff7eb3",
-    bg: "linear-gradient(135deg, #fff0f7, #ffe8f0)",
+    title: "Зенитно-ракетные комплексы",
+    description: "Системы ПВО: IRIS-T и другие ЗРК",
+    accent: "#e84a5f",
+    bg: "linear-gradient(160deg, #2a1a1a 0%, #3a2a2a 100%)",
     slides: 3,
     minutes: 6,
     startSlide: 5,
+    image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/772b0e1c-2463-4689-a2b9-9974a47e6df2.png",
   },
 ];
 
@@ -49,142 +48,123 @@ type Step = "intro" | "chapters";
 
 export default function NovelIntro({ onNavigate, onStartChapter }: NovelIntroProps) {
   const [step, setStep] = useState<Step>("intro");
-  const [mascot, setMascot] = useState(MASCOT_POINTER);
 
   if (step === "intro") {
     return (
-      <div
-        className="min-h-screen flex flex-col"
-        style={{ background: "linear-gradient(160deg, #c8e8ff 0%, #e8f6ff 60%, #f0f9ff 100%)" }}
-      >
-        <header className="flex items-center px-4 pt-4 pb-2 gap-3">
+      <div className="min-h-screen flex flex-col bg-[#0d1a0d]">
+        <header className="flex items-center px-4 pt-4 pb-2 gap-3 z-10">
           <button
             onClick={() => onNavigate("home")}
-            className="p-2 rounded-xl hover:bg-white/40 transition-colors"
+            className="p-2 rounded-xl hover:bg-white/10 transition-colors"
           >
-            <Icon name="ArrowLeft" size={20} className="text-navy" />
+            <Icon name="ArrowLeft" size={20} className="text-white/80" />
           </button>
-          <span className="font-oswald font-bold text-navy text-lg">Визуальная Новелла</span>
+          <span className="font-oswald font-bold text-white/90 text-lg">Визуальная Новелла</span>
         </header>
 
-        <div className="flex-1 flex flex-col items-center justify-center px-6 pb-8 animate-fade-in">
-          <img
-            src={mascot}
-            alt="Инструктор"
-            className="w-64 sm:w-72 object-contain animate-float mb-6"
-            style={{ filter: "drop-shadow(0 8px 24px rgba(59,158,255,0.2))" }}
-          />
-
-          <div
-            className="w-full max-w-sm rounded-3xl p-6 text-center shadow-xl mb-6"
-            style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(12px)", border: "1.5px solid rgba(59,158,255,0.15)" }}
-          >
-            <h1 className="font-oswald text-2xl font-bold text-navy mb-3">
-              Привет, курсант! 👋
-            </h1>
-            <p className="font-golos text-sm text-muted-foreground leading-relaxed mb-4">
-              Я твой личный инструктор. <strong className="text-navy">Визуальная новелла</strong> — это интерактивный курс, где я буду объяснять тебе основы авиации шаг за шагом.
-            </p>
-            <div className="flex flex-col gap-2 text-left">
-              {[
-                { icon: "BookOpen", text: "Читай слайды с объяснениями" },
-                { icon: "Brain", text: "Проходи тест в конце каждой главы" },
-                { icon: "Trophy", text: "Зарабатывай XP и открывай достижения" },
-              ].map((item) => (
-                <div key={item.text} className="flex items-center gap-3 bg-sky-50 rounded-xl px-3 py-2">
-                  <Icon name={item.icon as "BookOpen"} size={16} className="text-sky-500 flex-shrink-0" />
-                  <span className="font-golos text-sm text-navy">{item.text}</span>
-                </div>
-              ))}
-            </div>
+        <div className="flex-1 flex flex-col animate-fade-in">
+          {/* Маскот на весь экран */}
+          <div className="flex-1 relative flex items-end justify-center overflow-hidden">
+            <div
+              className="absolute inset-0"
+              style={{ background: "radial-gradient(ellipse at center bottom, #1a3a1a 0%, #0d1a0d 70%)" }}
+            />
+            <img
+              src={MASCOT_INTRO}
+              alt="Инструктор"
+              className="relative w-full max-w-sm object-contain object-bottom animate-float"
+              style={{ filter: "drop-shadow(0 0 40px rgba(59,158,255,0.15))", maxHeight: "60vh" }}
+            />
           </div>
 
-          <button
-            onClick={() => { setMascot(MASCOT_HAPPY); setStep("chapters"); }}
-            className="w-full max-w-sm py-4 rounded-2xl text-white font-oswald font-bold text-lg shadow-lg flex items-center justify-center gap-2"
-            style={{ background: "linear-gradient(135deg, #3b9eff, #1a6fd4)" }}
-          >
-            Выбрать главу
-            <Icon name="ChevronRight" size={20} />
-          </button>
+          {/* Текст и кнопка снизу */}
+          <div className="px-5 pb-6 pt-4" style={{ background: "linear-gradient(0deg, #0d1a0d 80%, transparent)" }}>
+            <h1 className="font-oswald text-2xl font-bold text-white mb-2 text-center">
+              Привет, курсант!
+            </h1>
+            <p className="font-golos text-sm text-white/60 leading-relaxed mb-5 text-center">
+              Я твой инструктор. Здесь ты изучишь системы противодействия, ЗРК и тактику ВВС — шаг за шагом, с тестом после каждой главы.
+            </p>
+            <button
+              onClick={() => setStep("chapters")}
+              className="w-full py-4 rounded-2xl text-white font-oswald font-bold text-lg shadow-lg flex items-center justify-center gap-2"
+              style={{ background: "linear-gradient(135deg, #3b9eff, #1a6fd4)" }}
+            >
+              Выбрать главу
+              <Icon name="ChevronRight" size={20} />
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ background: "linear-gradient(160deg, #c8e8ff 0%, #e8f6ff 60%, #f0f9ff 100%)" }}
-    >
+    <div className="min-h-screen flex flex-col bg-[#0d1a0d]">
       <header className="flex items-center px-4 pt-4 pb-2 gap-3">
         <button
           onClick={() => setStep("intro")}
-          className="p-2 rounded-xl hover:bg-white/40 transition-colors"
+          className="p-2 rounded-xl hover:bg-white/10 transition-colors"
         >
-          <Icon name="ArrowLeft" size={20} className="text-navy" />
+          <Icon name="ArrowLeft" size={20} className="text-white/80" />
         </button>
-        <span className="font-oswald font-bold text-navy text-lg">Выбери главу</span>
+        <span className="font-oswald font-bold text-white/90 text-lg">Выбери главу</span>
       </header>
 
-      <div className="flex-1 flex flex-col px-4 pb-8 pt-2 animate-fade-in">
-        <div className="flex items-end gap-4 mb-5">
-          <img
-            src={MASCOT_HAPPY}
-            alt="Инструктор"
-            className="w-28 object-contain animate-float flex-shrink-0"
-            style={{ filter: "drop-shadow(0 4px 16px rgba(59,158,255,0.15))" }}
-          />
-          <div
-            className="rounded-2xl rounded-bl-none px-4 py-3 text-sm font-golos text-navy shadow"
-            style={{ background: "rgba(255,255,255,0.9)", border: "1.5px solid rgba(59,158,255,0.15)" }}
+      <div className="flex-1 flex flex-col px-4 pb-8 pt-2 gap-4 animate-fade-in overflow-y-auto">
+        {CHAPTERS.map((ch, idx) => (
+          <button
+            key={ch.id}
+            onClick={() => onStartChapter(ch.startSlide)}
+            className="w-full rounded-3xl overflow-hidden text-left shadow-xl hover:scale-[1.01] transition-all active:scale-[0.99] flex-shrink-0"
+            style={{ border: `1.5px solid ${ch.accent}44` }}
           >
-            Выбери главу, с которой хочешь начать. Рекомендую по порядку! 😊
-          </div>
-        </div>
+            {/* Превью-изображение */}
+            <div className="relative h-44 overflow-hidden">
+              <img
+                src={ch.image}
+                alt={ch.title}
+                className="w-full h-full object-cover object-top"
+              />
+              <div
+                className="absolute inset-0"
+                style={{ background: "linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 60%)" }}
+              />
+              <span
+                className="absolute top-3 left-3 text-xs font-oswald font-bold px-3 py-1 rounded-full text-white"
+                style={{ background: ch.accent }}
+              >
+                Глава {idx + 1}
+              </span>
+            </div>
 
-        <div className="flex flex-col gap-3">
-          {CHAPTERS.map((ch, idx) => (
-            <button
-              key={ch.id}
-              onClick={() => onStartChapter(ch.startSlide)}
-              className="w-full rounded-3xl p-4 text-left shadow-md hover:scale-[1.01] transition-all active:scale-[0.99]"
-              style={{ background: "rgba(255,255,255,0.9)", border: `2px solid ${ch.accent}22` }}
+            {/* Инфо */}
+            <div
+              className="px-4 py-3 flex items-center gap-3"
+              style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(8px)" }}
             >
-              <div className="flex items-center gap-4">
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"
-                  style={{ background: ch.bg }}
-                >
-                  {ch.emoji}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <span
-                      className="text-xs font-oswald font-bold px-2 py-0.5 rounded-full text-white"
-                      style={{ background: ch.accent }}
-                    >
-                      Глава {idx + 1}
-                    </span>
-                  </div>
-                  <div className="font-oswald font-bold text-navy text-base leading-tight">{ch.title}</div>
-                  <div className="font-golos text-xs text-muted-foreground mt-0.5 line-clamp-1">{ch.description}</div>
-                </div>
-                <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground font-golos">
-                    <Icon name="FileText" size={12} />
-                    <span>{ch.slides} слайда</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground font-golos">
-                    <Icon name="Clock" size={12} />
-                    <span>~{ch.minutes} мин</span>
-                  </div>
-                  <Icon name="ChevronRight" size={16} style={{ color: ch.accent }} />
+              <div className="flex-1 min-w-0">
+                <div className="font-oswald font-bold text-white text-sm leading-tight line-clamp-2">{ch.title}</div>
+                <div className="flex items-center gap-3 mt-1">
+                  <span className="font-golos text-xs text-white/50 flex items-center gap-1">
+                    <Icon name="FileText" size={10} />
+                    {ch.slides} слайда
+                  </span>
+                  <span className="font-golos text-xs text-white/50 flex items-center gap-1">
+                    <Icon name="Clock" size={10} />
+                    ~{ch.minutes} мин
+                  </span>
                 </div>
               </div>
-            </button>
-          ))}
-        </div>
+              <div
+                className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: ch.accent }}
+              >
+                <Icon name="Play" size={16} className="text-white" />
+              </div>
+            </div>
+          </button>
+        ))}
       </div>
     </div>
   );
