@@ -38,7 +38,34 @@ export const MASCOT_IMAGES: MascotImage[] = [
     description: "Руки крест-накрест — неверный ответ, категорическое нет",
   },
 
-  // ── Batch 2 — добавь сюда следующие 5 изображений ────────────────
+  // ── Batch 2 ──────────────────────────────────────────────────────
+  {
+    url: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/3a5cccb6-2e9d-4f3b-9ab4-d442e4b06283.png",
+    tags: ["thumbs_up", "correct", "good", "approve", "success", "happy"],
+    description: "Большой палец вверх, открытая улыбка — правильный ответ, одобрение, успех",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/181d2f1b-d1f7-4903-b46f-5f30f3af829b.png",
+    tags: ["angry", "fist", "motivation", "serious", "challenge"],
+    description: "Сжатый кулак, сердитый взгляд — серьёзная тема, вызов, мотивация",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/e33c2d0e-4f3d-4b93-ab15-d33c49400039.png",
+    tags: ["angry", "glasses", "fists", "intense", "demand", "strict"],
+    description: "В очках, оба кулака — требование, интенсивная тема, серьёзное предупреждение",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/48c3729a-1220-48ef-b2f7-9e625c8604b0.png",
+    tags: ["glasses", "reading", "document", "study", "focus", "briefing"],
+    description: "В очках, читает документ — разбор материала, брифинг, изучение данных",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/0c671dd8-ed33-4b86-aab6-502534964987.png",
+    tags: ["glasses", "reading", "report", "calm", "analyze"],
+    description: "В очках, держит лист — спокойный анализ, чтение отчёта, сводка",
+  },
+
+  // ── Batch 3 — добавь сюда следующие изображения ──────────────────
   // { url: "...", tags: [...], description: "..." },
 ];
 
@@ -60,9 +87,12 @@ export function getMascots(tag: string): string[] {
 
 // Удобные константы для частых ситуаций
 export const MASCOT = {
-  pointer:    getMascot("pointer"),    // указывает указкой
-  idea:       getMascot("idea"),       // в очках, палец вверх
-  side:       getMascot("side"),       // вид сбоку/сзади
-  stop:       getMascot("stop"),       // знак стоп
-  no:         getMascot("cross"),      // руки крестом
+  pointer:    getMascot("pointer"),     // указывает указкой
+  idea:       getMascot("idea"),        // в очках, палец вверх
+  side:       getMascot("side"),        // вид сбоку/сзади
+  stop:       getMascot("stop"),        // знак стоп
+  no:         getMascot("cross"),       // руки крестом
+  success:    getMascot("thumbs_up"),   // палец вверх, правильный ответ
+  angry:      getMascot("angry"),       // сжатый кулак, серьёзная тема
+  reading:    getMascot("reading"),     // читает документ, брифинг
 };
