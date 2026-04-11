@@ -37,6 +37,28 @@ const CHAPTERS = [
     startSlide: 5,
     image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/772b0e1c-2463-4689-a2b9-9974a47e6df2.png",
   },
+  {
+    id: 4,
+    title: "Дроны-перехватчики",
+    description: "Классификация и тактика применения FPV-перехватчиков",
+    accent: "#f5a623",
+    bg: "linear-gradient(160deg, #2a1e0a 0%, #3a2a10 100%)",
+    slides: 3,
+    minutes: 5,
+    startSlide: 8,
+    image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/fdfb1ec2-8d76-4343-ae9f-1b95ec2f8b8f.png",
+  },
+  {
+    id: 5,
+    title: "Системы обнаружения наших изделий",
+    description: "РЛС, оптика и мобильные станции обнаружения",
+    accent: "#00b87a",
+    bg: "linear-gradient(160deg, #0a2a1a 0%, #103a2a 100%)",
+    slides: 3,
+    minutes: 6,
+    startSlide: 11,
+    image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/08f30724-5488-4ebb-b2c4-5920c046581b.png",
+  },
 ];
 
 interface NovelIntroProps {
