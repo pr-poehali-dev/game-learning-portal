@@ -3,9 +3,9 @@ import Icon from "@/components/ui/icon";
 import Quiz, { QuizData } from "@/components/Quiz";
 
 const MASCOT = {
-  pointer: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/4b016d30-ad5f-4376-94f4-a33fd4f4c464.png",
-  happy:   "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/33ee4302-33d0-4b32-a387-61140be18e8b.png",
-  thumbs:  "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/e3a5b438-5fdd-402d-b4d8-7d0a7b300126.png",
+  pointer: "",
+  happy:   "",
+  thumbs:  "",
 };
 
 type SlideType = "text" | "image" | "card";

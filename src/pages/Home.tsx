@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
-const MASCOT_THUMBS = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/e3a5b438-5fdd-402d-b4d8-7d0a7b300126.png";
-const MASCOT_HAPPY = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/33ee4302-33d0-4b32-a387-61140be18e8b.png";
+const MASCOT_THUMBS = "";
+const MASCOT_HAPPY = "";
 
 const CLOUDS = [
   { w: 160, h: 70, x: 5, y: 8, delay: 0 },
@@ -91,46 +91,46 @@ export default function Home({ onNavigate }: HomeProps) {
       </nav>
 
       {/* Основной контент */}
-      <main className="relative z-10 flex-1 flex flex-col lg:flex-row items-center justify-center px-5 gap-4 pb-4">
+      <main className="relative z-10 flex-1 flex flex-col items-center px-5 pb-4">
 
-        {/* Левая часть — текст */}
+        {/* Маскот — занимает основное место */}
         <div
-          className={`flex-1 max-w-lg text-center lg:text-left transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className={`relative flex-1 flex items-end justify-center w-full max-w-sm transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          style={{ minHeight: 0 }}
         >
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full sky-card text-sm font-golos font-medium text-sky border border-sky-100">
-            <span>✈️</span>
-            <span>Авиационное обучение</span>
-          </div>
+          <div
+            className="absolute inset-0 rounded-full blur-3xl opacity-20 pointer-events-none"
+            style={{ background: "radial-gradient(circle, #3b9eff 0%, #ff7eb3 100%)" }}
+          />
+          {mascot ? (
+            <img
+              src={mascot}
+              alt="Инструктор"
+              className="relative w-full max-h-[55vh] object-contain object-bottom animate-float transition-all duration-500"
+              style={{ filter: "drop-shadow(0 8px 32px rgba(59,158,255,0.25))" }}
+            />
+          ) : (
+            <div className="w-full max-h-[55vh] flex items-center justify-center" style={{ minHeight: 240 }}>
+              <div className="text-9xl opacity-30">🧑‍✈️</div>
+            </div>
+          )}
+        </div>
 
-          <h1 className="font-oswald text-5xl sm:text-6xl font-bold text-navy leading-tight mb-3">
+        {/* Текст и кнопки — снизу, пролистываются */}
+        <div
+          className={`w-full max-w-sm text-center transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+        >
+          <h1 className="font-oswald text-4xl sm:text-5xl font-bold text-navy leading-tight mb-2">
             ВЗЛЁТ<br />
             <span style={{ color: "var(--sky-blue)" }}>К ЗНАНИЯМ</span>
           </h1>
 
-          <p className="text-muted-foreground text-base font-golos leading-relaxed mb-6 max-w-md mx-auto lg:mx-0">
-            Изучай авиацию вместе с инструктором через интерактивные лекции-новеллы и карточки знаний
+          <p className="text-muted-foreground text-sm font-golos leading-relaxed mb-5">
+            Изучай авиацию вместе с инструктором через интерактивные лекции и карточки знаний
           </p>
 
-          {/* Прогресс */}
-          <div className="sky-card rounded-2xl p-4 mb-6 w-full max-w-sm mx-auto lg:mx-0">
-            <div className="flex items-center justify-between mb-1 text-sm font-golos">
-              <span className="text-muted-foreground">Прогресс курса</span>
-              <span className="font-bold text-sky">Уровень 3</span>
-            </div>
-            <div className="w-full rounded-full h-2.5 mb-2" style={{ background: "#e8f0ff" }}>
-              <div className="progress-sky h-2.5" style={{ width: "42%" }} />
-            </div>
-            <div className="flex items-center gap-3 text-xs text-muted-foreground font-golos">
-              <span>⚡ 340 XP</span>
-              <span>·</span>
-              <span>🔥 5 дней</span>
-              <span>·</span>
-              <span>🏅 8 значков</span>
-            </div>
-          </div>
-
           {/* Кнопки разделов */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+          <div className="flex flex-col gap-3">
             <button
               onClick={() => onNavigate("novel")}
               onMouseEnter={() => setMascot(MASCOT_HAPPY)}
@@ -161,23 +161,6 @@ export default function Home({ onNavigate }: HomeProps) {
               <Icon name="ChevronRight" size={18} className="ml-auto" />
             </button>
           </div>
-        </div>
-
-        {/* Маскот */}
-        <div
-          className={`relative flex-shrink-0 transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
-          <div
-            className="absolute inset-0 rounded-full blur-3xl opacity-20 pointer-events-none"
-            style={{ background: "radial-gradient(circle, #3b9eff 0%, #ff7eb3 100%)" }}
-          />
-          <img
-            src={mascot}
-            alt="Инструктор"
-            className="relative w-80 sm:w-96 lg:w-[26rem] object-contain animate-float transition-all duration-500"
-            style={{ filter: "drop-shadow(0 8px 24px rgba(59,158,255,0.2))" }}
-          />
-
         </div>
       </main>
 

@@ -1,6 +1,6 @@
 import Icon from "@/components/ui/icon";
 
-const MASCOT_THUMBS = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/e3a5b438-5fdd-402d-b4d8-7d0a7b300126.png";
+const MASCOT_THUMBS = "";
 
 const STATS = [
   { icon: "⚡", label: "Очков опыта", value: "340 XP", color: "#f5a623" },

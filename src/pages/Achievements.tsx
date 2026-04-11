@@ -1,6 +1,6 @@
 import Icon from "@/components/ui/icon";
 
-const MASCOT_HAPPY = "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/33ee4302-33d0-4b32-a387-61140be18e8b.png";
+const MASCOT_HAPPY = "";
 
 interface Achievement {
   id: number;
