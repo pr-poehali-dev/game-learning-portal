@@ -48,7 +48,8 @@ const SLIDES: Slide[] = [
     mascotMood: "reading", accent: "#7c5cfc",
     sceneGrad: "linear-gradient(160deg, #eeeaff 0%, #f8f5ff 100%)",
     xp: 15,
-    imageCaption: "Здесь будет схема профиля крыла и распределения давлений",
+    image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/files/6b8776d4-2c1c-4c3e-94cc-8e0cc10a16b3.jpg",
+    imageCaption: "Профиль крыла и распределение давлений",
     chapterEnd: true,   // ← конец главы 1
   },
 
@@ -67,6 +68,7 @@ const SLIDES: Slide[] = [
     xp: 40,
     cardTitle: "МиГ-29 «Fulcrum»",
     cardEmoji: "🛩️",
+    cardImage: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/files/a40066c3-5251-4f8a-83e1-43cda9baf6a1.jpg",
     cardDescription: "Советский многоцелевой истребитель четвёртого поколения. Разработан ОКБ Микояна. Состоит на вооружении более 25 стран мира.",
     cardSpecs: [
       { label: "Макс. скорость", value: "2 400 км/ч (М 2,25)" },
@@ -92,7 +94,8 @@ const SLIDES: Slide[] = [
     mascotMood: "reading", accent: "#1a6fd4",
     sceneGrad: "linear-gradient(160deg, #dceeff 0%, #eaf4ff 100%)",
     xp: 15,
-    imageCaption: "Здесь будет фотография кабины пилота МиГ-29",
+    image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/files/455ae5ae-f04a-413d-aff1-d91c07a2ac7a.jpg",
+    imageCaption: "Кабина пилота МиГ-29",
   },
   {
     id: 8, type: "text", label: "Завершение",
