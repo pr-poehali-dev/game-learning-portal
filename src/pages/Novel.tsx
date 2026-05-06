@@ -217,14 +217,15 @@ interface NovelProps {
 type Mode = "slide" | "quiz";
 
 export default function Novel({ onNavigate, startSlide = 0 }: NovelProps) {
-  const [current, setCurrent] = useState(startSlide);
-  const [seen, setSeen] = useState<Set<number>>(new Set([startSlide]));
+  const safeStart = Math.min(Math.max(0, startSlide), SLIDES.length - 1);
+  const [current, setCurrent] = useState(safeStart);
+  const [seen, setSeen] = useState<Set<number>>(new Set([safeStart]));
   const [transitioning, setTransitioning] = useState(false);
   const [mode, setMode] = useState<Mode>("slide");
   const [totalXp, setTotalXp] = useState(0);
 
-  const slide = SLIDES[current];
-  const slideXp = Array.from(seen).reduce((acc, i) => acc + SLIDES[i].xp, 0);
+  const slide = SLIDES[current] ?? SLIDES[0];
+  const slideXp = Array.from(seen).reduce((acc, i) => acc + (SLIDES[i]?.xp ?? 0), 0);
 
   const goTo = (index: number) => {
     if (transitioning || index === current) return;
