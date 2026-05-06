@@ -15,6 +15,8 @@ interface Slide {
   sceneGrad: string;
   xp: number;
   chapterEnd?: boolean;   // ← этот слайд завершает главу → после него тест
+  chapterCover?: boolean; // ← обложка главы, fullscreen-режим
+  chapterTitle?: string;  // ← заголовок на обложке
   text?: string;
   image?: string;
   imageCaption?: string;
@@ -33,9 +35,10 @@ const SLIDES: Slide[] = [
     id: 0, type: "image", label: "Глава 1",
     mascotMood: "idea", accent: "#3b9eff",
     sceneGrad: "linear-gradient(160deg, #1a2a1a 0%, #2a3a2a 100%)",
-    xp: 0,
+    xp: 0, chapterCover: true,
+    chapterTitle: "Системы противодействия нашим изделиям",
     image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/8566a64f-252d-45b5-83a8-7693bbaf7a57.jpg",
-    imageCaption: "Системы противодействия нашим изделиям",
+    imageCaption: "404 страны — разбираем угрозы в воздухе",
   },
   {
     id: 1, type: "text", label: "Введение",
@@ -66,9 +69,10 @@ const SLIDES: Slide[] = [
     id: 4, type: "image", label: "Глава 2",
     mascotMood: "pointer", accent: "#7c5cfc",
     sceneGrad: "linear-gradient(160deg, #1a1a2a 0%, #2a2a3a 100%)",
-    xp: 0,
+    xp: 0, chapterCover: true,
+    chapterTitle: "ВВС в контексте противодействия нашим изделиям",
     image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/57c08411-431f-4e7c-bed2-7631a487eadf.jpg",
-    imageCaption: "ВВС в контексте противодействия нашим изделиям",
+    imageCaption: "Авиация как инструмент противодействия",
   },
   {
     id: 5, type: "text", label: "Четыре силы",
@@ -102,9 +106,10 @@ const SLIDES: Slide[] = [
     id: 7, type: "image", label: "Глава 3",
     mascotMood: "pointer", accent: "#e84a5f",
     sceneGrad: "linear-gradient(160deg, #2a1a1a 0%, #3a2a2a 100%)",
-    xp: 0,
+    xp: 0, chapterCover: true,
+    chapterTitle: "Зенитно-ракетные комплексы",
     image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/772b0e1c-2463-4689-a2b9-9974a47e6df2.png",
-    imageCaption: "Зенитно-ракетные комплексы",
+    imageCaption: "Системы ПВО: IRIS-T и другие ЗРК",
   },
   {
     id: 8, type: "text", label: "Органы управления",
@@ -400,10 +405,37 @@ export default function Novel({ onNavigate, startSlide = 0 }: NovelProps) {
               </div>
             )}
 
-            {/* IMAGE */}
-            {slide.type === "image" && (
-              <div className="flex-1 flex flex-col gap-3">
-                <div className="flex items-center gap-2 sky-card rounded-2xl px-4 py-2.5 border border-sky-100">
+            {/* IMAGE — обложка главы */}
+            {slide.type === "image" && slide.chapterCover && (
+              <div className="flex-1 relative rounded-3xl overflow-hidden" style={{ minHeight: 0 }}>
+                <img
+                  src={slide.image}
+                  alt={slide.label}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.1) 100%)" }}
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-6 pb-5">
+                  <div
+                    className="inline-block text-xs font-oswald font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-3"
+                    style={{ background: `${slide.accent}33`, color: slide.accent, border: `1px solid ${slide.accent}55` }}
+                  >
+                    {slide.label}
+                  </div>
+                  <h2 className="font-oswald font-bold text-white text-2xl leading-tight mb-2">
+                    {slide.chapterTitle}
+                  </h2>
+                  <p className="text-white/60 font-golos text-sm">{slide.imageCaption}</p>
+                </div>
+              </div>
+            )}
+
+            {/* IMAGE — обычный слайд с изображением */}
+            {slide.type === "image" && !slide.chapterCover && (
+              <div className="flex-1 flex flex-col gap-3" style={{ minHeight: 0 }}>
+                <div className="flex items-center gap-2 sky-card rounded-2xl px-4 py-2.5 border border-sky-100 flex-shrink-0">
                   <img src={MASCOT[slide.mascotMood]} alt="" className="w-14 h-14 object-contain object-top" />
                   <div>
                     <span className="font-oswald font-bold text-navy text-sm">Инструктор</span>
@@ -415,18 +447,29 @@ export default function Novel({ onNavigate, startSlide = 0 }: NovelProps) {
                   </div>
                 </div>
                 <div
-                  className="flex-1 rounded-3xl overflow-hidden relative flex flex-col items-center justify-center"
-                  style={{ border: `2px solid ${slide.accent}33`, background: `linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.3))`, minHeight: 200 }}
+                  className="flex-1 rounded-3xl overflow-hidden relative"
+                  style={{ border: `2px solid ${slide.accent}33`, minHeight: 0 }}
                 >
                   {slide.image ? (
-                    <img src={slide.image} alt={slide.label} className="w-full h-full object-contain" />
+                    <>
+                      <img
+                        src={slide.image}
+                        alt={slide.label}
+                        className="absolute inset-0 w-full h-full object-cover object-center"
+                      />
+                      {slide.imageCaption && (
+                        <div
+                          className="absolute bottom-0 left-0 right-0 px-4 py-3"
+                          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%)" }}
+                        >
+                          <p className="text-white/90 font-golos text-sm">{slide.imageCaption}</p>
+                        </div>
+                      )}
+                    </>
                   ) : (
-                    <div className="flex flex-col items-center gap-3 text-center px-8 py-10">
+                    <div className="flex flex-col items-center justify-center gap-3 text-center px-8 py-10 h-full">
                       <div className="text-6xl opacity-25">🖼️</div>
                       <div className="text-sm text-muted-foreground font-golos opacity-70">{slide.imageCaption}</div>
-                      <div className="text-xs px-3 py-1 rounded-full font-golos opacity-50" style={{ background: `${slide.accent}20`, color: slide.accent }}>
-                        📷 Место под изображение
-                      </div>
                     </div>
                   )}
                 </div>
@@ -447,21 +490,38 @@ export default function Novel({ onNavigate, startSlide = 0 }: NovelProps) {
                     +{slide.xp} XP
                   </div>
                 </div>
-                <div className="flex-1 sky-card rounded-3xl p-5 border border-sky-100 overflow-y-auto">
+                <div className="flex-1 sky-card rounded-3xl border border-sky-100 overflow-y-auto">
                   <div
-                    className="rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
-                    style={{ background: `linear-gradient(135deg, rgba(200,220,255,0.5), rgba(255,255,255,0.4))`, minHeight: 160, border: `1.5px solid ${slide.accent}22` }}
+                    className="relative overflow-hidden rounded-t-3xl"
+                    style={{ height: "45vw", maxHeight: 280, minHeight: 180 }}
                   >
                     {slide.cardImage ? (
-                      <img src={slide.cardImage} alt={slide.cardTitle} className="w-full object-cover" style={{ maxHeight: 220 }} />
+                      <>
+                        <img
+                          src={slide.cardImage}
+                          alt={slide.cardTitle}
+                          className="absolute inset-0 w-full h-full object-cover object-center"
+                        />
+                        <div
+                          className="absolute inset-0"
+                          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)" }}
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 px-5 pb-4">
+                          <div className="text-3xl mb-1">{slide.cardEmoji}</div>
+                          <h2 className="font-oswald font-bold text-white text-xl leading-tight">{slide.cardTitle}</h2>
+                        </div>
+                      </>
                     ) : (
-                      <div className="flex flex-col items-center gap-2 py-8 opacity-30">
+                      <div
+                        className="flex flex-col items-center justify-center gap-2 h-full opacity-30"
+                        style={{ background: `linear-gradient(135deg, rgba(200,220,255,0.5), rgba(255,255,255,0.4))` }}
+                      >
                         <div className="text-5xl">{slide.cardEmoji}</div>
                         <div className="text-xs text-muted-foreground font-golos">Фото изделия</div>
                       </div>
                     )}
                   </div>
-                  <h2 className="font-oswald text-2xl font-bold text-navy mb-1">{slide.cardEmoji} {slide.cardTitle}</h2>
+                  <div className="p-5 pt-4">
                   {slide.cardDescription && (
                     <p className="text-sm font-golos text-muted-foreground leading-relaxed mb-4">{slide.cardDescription}</p>
                   )}
@@ -480,6 +540,7 @@ export default function Novel({ onNavigate, startSlide = 0 }: NovelProps) {
                       </div>
                     </>
                   )}
+                  </div>
                 </div>
               </div>
             )}
