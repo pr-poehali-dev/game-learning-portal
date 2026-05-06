@@ -23,7 +23,7 @@ const CHAPTERS = [
     bg: "linear-gradient(160deg, #1a1a2a 0%, #2a2a3a 100%)",
     slides: 2,
     minutes: 4,
-    startSlide: 3,
+    startSlide: 4,
     image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/57c08411-431f-4e7c-bed2-7631a487eadf.jpg",
   },
   {
@@ -34,7 +34,7 @@ const CHAPTERS = [
     bg: "linear-gradient(160deg, #2a1a1a 0%, #3a2a2a 100%)",
     slides: 3,
     minutes: 6,
-    startSlide: 5,
+    startSlide: 7,
     image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/772b0e1c-2463-4689-a2b9-9974a47e6df2.png",
   },
   {

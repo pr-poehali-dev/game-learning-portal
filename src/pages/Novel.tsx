@@ -28,7 +28,15 @@ interface Slide {
 // ─── Главы со слайдами ────────────────────────────────────────────
 
 const SLIDES: Slide[] = [
-  // ── Глава 1: Аэродинамика ──
+  // ── Глава 1: Аэродинамика ── (startSlide: 0)
+  {
+    id: 0, type: "image", label: "Глава 1",
+    mascotMood: "idea", accent: "#3b9eff",
+    sceneGrad: "linear-gradient(160deg, #1a2a1a 0%, #2a3a2a 100%)",
+    xp: 0,
+    image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/8566a64f-252d-45b5-83a8-7693bbaf7a57.jpg",
+    imageCaption: "Системы противодействия нашим изделиям",
+  },
   {
     id: 1, type: "text", label: "Введение",
     mascotMood: "idea", accent: "#3b9eff",
@@ -53,16 +61,24 @@ const SLIDES: Slide[] = [
     chapterEnd: true,   // ← конец главы 1
   },
 
-  // ── Глава 2: Четыре силы ──
+  // ── Глава 2: Четыре силы ── (startSlide: 4)
   {
-    id: 4, type: "text", label: "Четыре силы",
+    id: 4, type: "image", label: "Глава 2",
+    mascotMood: "pointer", accent: "#7c5cfc",
+    sceneGrad: "linear-gradient(160deg, #1a1a2a 0%, #2a2a3a 100%)",
+    xp: 0,
+    image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/57c08411-431f-4e7c-bed2-7631a487eadf.jpg",
+    imageCaption: "ВВС в контексте противодействия нашим изделиям",
+  },
+  {
+    id: 5, type: "text", label: "Четыре силы",
     mascotMood: "pointer", accent: "#7c5cfc",
     sceneGrad: "linear-gradient(160deg, #e8e0ff 0%, #f5eeff 100%)",
     xp: 30,
     text: "На самолёт действуют четыре основные силы: подъёмная сила, сила тяжести, тяга двигателя и лобовое сопротивление. Задача пилота — управлять их равновесием на каждом этапе полёта.",
   },
   {
-    id: 5, type: "card", label: "Изделие: МиГ-29",
+    id: 6, type: "card", label: "Изделие: МиГ-29",
     mascotMood: "lean", accent: "#1a6fd4",
     sceneGrad: "linear-gradient(160deg, #dceeff 0%, #eaf4ff 100%)",
     xp: 40,
@@ -81,16 +97,24 @@ const SLIDES: Slide[] = [
     chapterEnd: true,   // ← конец главы 2
   },
 
-  // ── Глава 3: Управление ──
+  // ── Глава 3: Управление ── (startSlide: 7)
   {
-    id: 6, type: "text", label: "Органы управления",
+    id: 7, type: "image", label: "Глава 3",
+    mascotMood: "pointer", accent: "#e84a5f",
+    sceneGrad: "linear-gradient(160deg, #2a1a1a 0%, #3a2a2a 100%)",
+    xp: 0,
+    image: "https://cdn.poehali.dev/projects/25d547e9-32e8-4987-8f1a-a0b8997cbc86/bucket/772b0e1c-2463-4689-a2b9-9974a47e6df2.png",
+    imageCaption: "Зенитно-ракетные комплексы",
+  },
+  {
+    id: 8, type: "text", label: "Органы управления",
     mascotMood: "pointer", accent: "#ff7eb3",
     sceneGrad: "linear-gradient(160deg, #ffe8f0 0%, #fff4f9 100%)",
     xp: 30,
     text: "Пилот управляет самолётом тремя органами: элероны управляют креном (наклон по крыльям), руль высоты — тангажем (нос вверх/вниз), руль направления — рысканием (повороты носа).",
   },
   {
-    id: 7, type: "image", label: "Кабина МиГ-29",
+    id: 9, type: "image", label: "Кабина МиГ-29",
     mascotMood: "reading", accent: "#1a6fd4",
     sceneGrad: "linear-gradient(160deg, #dceeff 0%, #eaf4ff 100%)",
     xp: 15,
@@ -98,7 +122,7 @@ const SLIDES: Slide[] = [
     imageCaption: "Кабина пилота МиГ-29",
   },
   {
-    id: 8, type: "text", label: "Завершение",
+    id: 10, type: "text", label: "Завершение",
     mascotMood: "celebrate", accent: "#00b87a",
     sceneGrad: "linear-gradient(160deg, #c8ffea 0%, #eafff5 100%)",
     xp: 50,
@@ -143,8 +167,8 @@ const QUIZZES: Record<number, QuizData> = {
       },
     ],
   },
-  5: {
-    chapterId: 5,
+  6: {
+    chapterId: 6,
     chapterTitle: "Четыре силы и МиГ-29",
     accent: "#7c5cfc",
     questions: [
@@ -172,8 +196,8 @@ const QUIZZES: Record<number, QuizData> = {
       },
     ],
   },
-  8: {
-    chapterId: 8,
+  10: {
+    chapterId: 10,
     chapterTitle: "Органы управления",
     accent: "#ff7eb3",
     questions: [
